@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:asm_gegadyne/controllers/app_controllers.dart';
+
 WelcomeModel WelcomeModelFromJson(String str) =>
     WelcomeModel.fromJson(json.decode(str));
 

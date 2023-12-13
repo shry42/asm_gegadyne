@@ -15,10 +15,10 @@ class MyApp extends StatelessWidget {
       title: 'asm_gegadyne',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          // useMaterial3: true,
-          ),
-      home: const HomePage(),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: HomePage(),
     );
   }
 }

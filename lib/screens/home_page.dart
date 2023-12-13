@@ -1,14 +1,30 @@
+import 'dart:ffi';
+
+import 'package:asm_gegadyne/controllers/login_controllers.dart';
 import 'package:asm_gegadyne/screens/user_details_screen.dart';
+import 'package:asm_gegadyne/utils/toast_notify.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  TextEditingController emailController = TextEditingController();
+
+  TextEditingController passController = TextEditingController();
+
+  final loginController c = Get.put(loginController());
 
   @override
   Widget build(BuildContext context) {
+    print("email:${c.emailId} ");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -36,6 +52,10 @@ class HomePage extends StatelessWidget {
                 //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: TextField(
+                  controller: emailController,
+                  onChanged: (value) {
+                    c.emailId.value = emailController.text;
+                  },
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -49,6 +69,10 @@ class HomePage extends StatelessWidget {
                     left: 15.0, right: 15.0, top: 15, bottom: 0),
                 //padding: EdgeInsets.symmetric(horizontal: 15),
                 child: TextField(
+                  controller: passController,
+                  onChanged: (value) {
+                    c.password.value = passController.text;
+                  },
                   obscureText: true,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -79,24 +103,22 @@ class HomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30)),
                   child: ElevatedButton(
                     onPressed: () {
-                      //
+                      c.login();
+                      Get.to(UserDetailsScreen(),
+                          transition: Transition.rightToLeftWithFade);
+                      // Fluttertoast.showToast(msg: "Logged in successfully");
+                      // toast("Logged in successfully");
                     },
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Center(
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.to(UserDetailsScreen());
-                            },
-                            child: const Text(
-                              'Login',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 25),
-                            ),
+                          child: Text(
+                            'Login',
+                            style: TextStyle(color: Colors.black, fontSize: 25),
                           ),
                         ),
-                        const Icon(
+                        Icon(
                           Icons.energy_savings_leaf,
                           color: Color.fromARGB(255, 78, 225, 83),
                         )

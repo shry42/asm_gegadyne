@@ -1,3 +1,4 @@
+import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/utils/qr_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -11,6 +12,7 @@ class UserDetailsScreen extends StatelessWidget {
     String email = 'Shravan.y@gegadyne.com';
     String role = 'Superadmin';
     String barcodeImageURL = "assets/scanner.gif";
+    String accessToken = "";
     // 'assets/qr_scanner.png'; // Replace with actual barcode image URL
 
     return Scaffold(
@@ -112,25 +114,22 @@ class UserDetailsScreen extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               //
+                              Get.to(QRScannerScreen(),
+                                  transition: Transition.fade,
+                                  duration: Duration(milliseconds: 200));
                             },
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.flip_camera_ios,
                                   color: Colors.black,
                                 ),
                                 Center(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      // Get.to(UserDetailsScreen());
-                                      Get.to(QRScannerScreen());
-                                    },
-                                    child: const Text(
-                                      'Scan QR',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 25),
-                                    ),
+                                  child: Text(
+                                    'Scan QR',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 25),
                                   ),
                                 ),
                               ],
