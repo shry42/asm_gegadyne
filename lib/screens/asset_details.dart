@@ -17,8 +17,10 @@ class AssetDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _buildDetailItem(Icons.person, 'First Name', 'shravan'),
-            _buildDetailItem(Icons.person, 'Last Name', 'yadav'),
+            _buildDetailItem(
+                Icons.person, 'First Name', '${ac.assets[0].firstName}'),
+            _buildDetailItem(
+                Icons.person, 'Last Name', '${ac.assets[0].lastName}'),
             _buildDetailItem(Icons.confirmation_number, 'ID', '1'),
             _buildDetailItem(Icons.person_outline, 'Emp ID', '1'),
             _buildDetailItem(Icons.devices, 'Make', '${ac.assets[0].make}'),

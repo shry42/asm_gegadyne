@@ -9,6 +9,8 @@ class AssestsController extends GetxController {
   List<Asset> assets = [];
   String active = "";
   Asset? asset;
+  RxString id = ''.obs;
+  RxString empId = ''.obs;
 
   @override
   void initState() {
@@ -24,8 +26,10 @@ class AssestsController extends GetxController {
       },
       body: json.encode({
         "qrvalue": {
-          "id": "2",
-          "emp_id": "1",
+          "id": AppController.id,
+          "emp_id": AppController.empId,
+          // "id": '1',
+          // "emp_id": '2',
         }
       }),
     );
