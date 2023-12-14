@@ -1,6 +1,10 @@
+import 'package:asm_gegadyne/controllers/assets-controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AssetDetailsScreen extends StatelessWidget {
+  final AssestsController ac = Get.put(AssestsController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -102,10 +102,10 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.greenAccent,
                       borderRadius: BorderRadius.circular(30)),
                   child: ElevatedButton(
-                    onPressed: () {
-                      c.login();
-                      // Get.to(UserDetailsScreen(),
-                      //     transition: Transition.rightToLeftWithFade);
+                    onPressed: () async {
+                      await c.loginUser();
+                      await Get.to(UserDetailsScreen(),
+                          transition: Transition.rightToLeftWithFade);
                       // Fluttertoast.showToast(msg: "Logged in successfully");
                       // toast("Logged in successfully");
                     },

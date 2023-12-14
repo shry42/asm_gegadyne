@@ -1,19 +1,34 @@
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
+import 'package:asm_gegadyne/controllers/login_controllers.dart';
 import 'package:asm_gegadyne/utils/qr_scanner.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
 class UserDetailsScreen extends StatelessWidget {
+  final loginController userData = Get.put(loginController());
+
   @override
   Widget build(BuildContext context) {
-    String name = 'Shravan Yadav';
-    String email = 'Shravan.y@gegadyne.com';
-    String role = 'Superadmin';
+    // String name = 'Shravan Yadav';
+    // String email = 'Shravan.y@gegadyne.com';
+    // String role = 'Superadmin';
     String barcodeImageURL = "assets/scanner.gif";
-    String accessToken = "";
+    // String accessToken = "";
     // 'assets/qr_scanner.png'; // Replace with actual barcode image URL
+
+    if (userData.user == null) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+    // if(userData.user!=null){
+    //   AppController.setaccessToken(userData.user.)
+    // }
 
     return Scaffold(
       appBar: AppBar(
@@ -61,21 +76,21 @@ class UserDetailsScreen extends StatelessWidget {
                       ),
                       // Deatils
                       Text(
-                        "SuperAdmin",
+                        "${userData.user!.role}",
                         style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "Shravan Yadav",
+                        "${userData.user!.firstName} ${userData.user!.lastName}",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "Shravan.y@gegadyne.com",
+                        userData.user!.emailId,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

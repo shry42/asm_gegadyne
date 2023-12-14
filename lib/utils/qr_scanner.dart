@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:asm_gegadyne/controllers/app_controllers.dart';
+import 'package:asm_gegadyne/controllers/assets-controller.dart';
 import 'package:asm_gegadyne/screens/asset_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,9 +15,13 @@ class QRScannerScreen extends StatefulWidget {
 }
 
 class _QRScannerScreenState extends State<QRScannerScreen> {
+  final AssestsController ac = Get.put(AssestsController());
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
   String qrText = '';
+  Map<String, dynamic> decodedData = {};
+  String firstName = "";
+  String firstNamee = '';
 
   @override
   void initState() {
@@ -89,6 +97,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(AppController.accessToken);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Scan QR Code'),
@@ -154,9 +163,10 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                           color: Colors.greenAccent,
                           borderRadius: BorderRadius.circular(25)),
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           //
-                          Get.to(AssetDetailsScreen(),
+                          ac.fetchAssetById();
+                          await await Get.to(AssetDetailsScreen(),
                               transition: Transition.rightToLeft);
                         },
                         child: const Row(
@@ -175,9 +185,11 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Text('$qrText',
+                  Text('$firstName',
                       style: const TextStyle(
-                          fontSize: 15, fontWeight: FontWeight.bold)),
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
                 ],
               ),
             )
@@ -192,10 +204,15 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         qrText = scanData.code!;
+        decodedData = json.decode(qrText);
+        firstName = decodedData['firstName'] ?? 'Scan properly';
+        firstName = "Hello ${firstName}";
         // Process the scanned QR code data here
       });
     });
   }
+
+  // String lastName = decodedData['lastName'] ?? 'Scan properly';
 
   @override
   void dispose() {
