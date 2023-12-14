@@ -104,8 +104,8 @@ class _HomePageState extends State<HomePage> {
                   child: ElevatedButton(
                     onPressed: () {
                       c.login();
-                      Get.to(UserDetailsScreen(),
-                          transition: Transition.rightToLeftWithFade);
+                      // Get.to(UserDetailsScreen(),
+                      //     transition: Transition.rightToLeftWithFade);
                       // Fluttertoast.showToast(msg: "Logged in successfully");
                       // toast("Logged in successfully");
                     },
