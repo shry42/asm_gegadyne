@@ -21,7 +21,7 @@ class AssetDetailsScreen extends StatelessWidget {
             _buildDetailItem(Icons.person, 'Last Name', 'yadav'),
             _buildDetailItem(Icons.confirmation_number, 'ID', '1'),
             _buildDetailItem(Icons.person_outline, 'Emp ID', '1'),
-            _buildDetailItem(Icons.devices, 'Make', '${ac.asset!.make}'),
+            _buildDetailItem(Icons.devices, 'Make', '${ac.assets[0].make}'),
             _buildDetailItem(Icons.confirmation_number, 'Serial No', 'gf'),
             _buildDetailItem(Icons.confirmation_number, 'Asset Tag', 'hfh'),
             _buildDetailItem(Icons.confirmation_number, 'IMEI No', 'jfhj'),
