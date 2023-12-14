@@ -6,6 +6,8 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
 class UserDetailsScreen extends StatelessWidget {
+
+  
   @override
   Widget build(BuildContext context) {
     String name = 'Shravan Yadav';
