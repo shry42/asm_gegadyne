@@ -165,8 +165,8 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           //
-                          ac.fetchAssetById();
-                          await await Get.to(AssetDetailsScreen(),
+                          await ac.fetchAssetById();
+                          await Get.to(AssetDetailsScreen(),
                               transition: Transition.rightToLeft);
                         },
                         child: const Row(

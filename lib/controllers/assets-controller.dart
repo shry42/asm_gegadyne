@@ -8,9 +8,12 @@ import 'package:http/http.dart' as http;
 class AssestsController extends GetxController {
   List<Asset> assets = [];
   String active = "";
+  Asset? asset;
 
   @override
-  void initState() {}
+  void initState() {
+    fetchAssetById();
+  }
 
   Future<void> fetchAssetById() async {
     http.Response response = await http.post(
