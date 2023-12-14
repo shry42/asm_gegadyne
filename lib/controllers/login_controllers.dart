@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:asm_gegadyne/api_services/api_service_main.dart';
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
-import 'package:asm_gegadyne/models/user.dart';
+import 'package:asm_gegadyne/models/user_model.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
