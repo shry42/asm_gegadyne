@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 15, bottom: 0),
                   //padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: TextField(
+                  child: TextFormField(
                     controller: passController,
                     onChanged: (value) {
                       c.password.value = passController.text;
@@ -118,10 +118,8 @@ class _HomePageState extends State<HomePage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          try {
-                            await c.loginUser(context);
-                          } catch (err) {
-                            // Show error dialog for incorrect credentials
+                          await c.loginUser(context);
+                          if (c.user?.emailId == null) {
                             Get.defaultDialog(
                               title: "Error",
                               middleText: "Email and password are incorrect",
@@ -133,7 +131,22 @@ class _HomePageState extends State<HomePage> {
                             );
                             return;
                           }
-                          await Get.to(UserDetailsScreen(),
+                          // try {
+                          //   await c.loginUser(context);
+                          // } catch (err) {
+                          //   // Show error dialog for incorrect credentials
+                          //   Get.defaultDialog(
+                          //     title: "Error",
+                          //     middleText: "Email and password are incorrect",
+                          //     textConfirm: "OK",
+                          //     confirmTextColor: Colors.white,
+                          //     onConfirm: () {
+                          //       Get.back(); // Close the dialog
+                          //     },
+                          //   );
+                          //   return;
+                          // }
+                          await Get.to(() => UserDetailsScreen(),
                               transition: Transition.rightToLeftWithFade);
                           // Fluttertoast.showToast(msg: "Logged in successfully");
                           // toast("Logged in successfully");

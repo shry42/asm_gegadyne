@@ -1,6 +1,6 @@
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/login_controllers.dart';
-import 'package:asm_gegadyne/utils/qr_scanner.dart';
+import 'package:asm_gegadyne/screens/qr_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';

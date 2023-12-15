@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
-import 'package:asm_gegadyne/controllers/assets-controller.dart';
+import 'package:asm_gegadyne/controllers/assets_controller.dart';
 import 'package:asm_gegadyne/screens/asset_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

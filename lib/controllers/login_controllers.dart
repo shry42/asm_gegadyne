@@ -6,6 +6,7 @@ import 'package:asm_gegadyne/api_services/api_service.dart';
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/models/user_model.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +16,7 @@ class loginController extends GetxController {
   RxString password = ''.obs;
   User? user;
   String token = "";
+  String role = "";
 
   Future<void> loginUser(BuildContext context) async {
     // throw Exception();
@@ -24,7 +26,9 @@ class loginController extends GetxController {
       body: json.encode({
         "emailId": emailId.value,
         "password": password.value,
-        // "emailId": "Shravan.y@gegadyne.com",
+        // "emailId": "Superadmin@gegadyne.com",
+        // "password": "Pass@123",
+        // "emailId": "shravan.y@gegadyne.com",
         // "password": "Pass@123",
       }),
     );
@@ -33,6 +37,9 @@ class loginController extends GetxController {
       user = User.fromJson(result['userDetails']);
       token = result['token'];
       AppController.setaccessToken(token);
+
+      role = user!.role;
+      AppController.setRole(role);
     }
   }
 
