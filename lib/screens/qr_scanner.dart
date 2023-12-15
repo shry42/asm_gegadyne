@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_controller.dart';
+import 'package:asm_gegadyne/controllers/assets_edit_controller.dart';
+import 'package:asm_gegadyne/models/asset_model.dart';
 import 'package:asm_gegadyne/screens/asset_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,6 +26,8 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
   String firstNamee = '';
   int? id;
   int? empId;
+  final AssetsEditController editAssetController =
+      Get.put(AssetsEditController());
 
   @override
   void initState() {
@@ -167,7 +171,30 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           //
-                          await ac.fetchAssetById();
+                          List<Asset> assets = await ac.fetchAssetById();
+
+                          //
+                          editAssetController.firstName.value =
+                              assets[0].firstName;
+                          editAssetController.lastName.value = ac.assets[0].lastName;
+                          editAssetController.ram.value = ac.assets[0].ram.toString();
+                          editAssetController.id.value = ac.assets[0].id.toString();
+                          editAssetController.empId.value = ac.assets[0].empId.toString();
+                          editAssetController.make.value = ac.assets[0].make.toString();
+                          editAssetController.serialNo.value = ac.assets[0].serialNo.toString();
+                          editAssetController.assetTag.value = ac.assets[0].assetTag;
+                          editAssetController.imeiNo.value = ac.assets[0].imeiNo;
+                          editAssetController.OSversion.value = ac.assets[0].osVersion;
+                          editAssetController.SSD.value = ac.assets[0].ssd;
+                          editAssetController.processor.value = ac.assets[0].processor;
+                          editAssetController.wifiMacAddress.value = ac.assets[0].wifiMacAddress;
+                          editAssetController.lanMacAddress.value = ac.assets[0].lanMacAddress;
+                          editAssetController.approvalStatus.value = ac.assets[0].approvalStatus;
+                          // editAssetController.c = ac.assets[0].createdBy.toString();
+                          editAssetController.isActive.value = ac.assets[0].isActive.toString();
+                          editAssetController.ram.value = ac.assets[0].ram.toString();
+                          //
+
                           await Get.to(AssetDetailsScreen(),
                               transition: Transition.rightToLeft);
                         },

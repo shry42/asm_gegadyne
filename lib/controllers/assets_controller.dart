@@ -17,7 +17,7 @@ class AssestsController extends GetxController {
     fetchAssetById();
   }
 
-  Future<void> fetchAssetById() async {
+  Future<List<Asset>> fetchAssetById() async {
     http.Response response = await http.post(
       Uri.parse('http://192.168.100.45:4000/api/assets/fetchAssetById'),
       headers: {
@@ -37,9 +37,12 @@ class AssestsController extends GetxController {
       Map<String, dynamic> result = json.decode(response.body);
       List<dynamic> data = result['data'];
       assets = data.map((item) => Asset.fromJson(item)).toList();
+      return assets;
       // Map<String, dynamic> position = data[0];
 
       // Map<String, dynamic> keyValue = position[0];
+    } else {
+      return [];
     }
   }
 }
