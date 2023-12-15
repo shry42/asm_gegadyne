@@ -1,4 +1,5 @@
 import 'package:asm_gegadyne/controllers/assets-controller.dart';
+import 'package:asm_gegadyne/models/asset_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,11 +17,13 @@ class AssetDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _buildDetailItem(Icons.person, 'First Name', 'shravan'),
-            _buildDetailItem(Icons.person, 'Last Name', 'yadav'),
+            _buildDetailItem(
+                Icons.person, 'First Name', '${ac.assets[0].firstName}'),
+            _buildDetailItem(
+                Icons.person, 'Last Name', '${ac.assets[0].lastName}'),
             _buildDetailItem(Icons.confirmation_number, 'ID', '1'),
             _buildDetailItem(Icons.person_outline, 'Emp ID', '1'),
-            _buildDetailItem(Icons.devices, 'Make', 'Laptop'),
+            _buildDetailItem(Icons.devices, 'Make', '${ac.assets[0].make}'),
             _buildDetailItem(Icons.confirmation_number, 'Serial No', 'gf'),
             _buildDetailItem(Icons.confirmation_number, 'Asset Tag', 'hfh'),
             _buildDetailItem(Icons.confirmation_number, 'IMEI No', 'jfhj'),

@@ -20,8 +20,10 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
   QRViewController? controller;
   String qrText = '';
   Map<String, dynamic> decodedData = {};
-  String firstName = "";
+  String firstName = '';
   String firstNamee = '';
+  int? id;
+  int? empId;
 
   @override
   void initState() {
@@ -165,8 +167,8 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           //
-                          ac.fetchAssetById();
-                          await await Get.to(AssetDetailsScreen(),
+                          await ac.fetchAssetById();
+                          await Get.to(AssetDetailsScreen(),
                               transition: Transition.rightToLeft);
                         },
                         child: const Row(
@@ -207,6 +209,11 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
         decodedData = json.decode(qrText);
         firstName = decodedData['firstName'] ?? 'Scan properly';
         firstName = "Hello ${firstName}";
+        id = decodedData['id'];
+        AppController.setid(id);
+        empId = decodedData['emp_Id'];
+        AppController.setempId(empId);
+
         // Process the scanned QR code data here
       });
     });

@@ -8,9 +8,14 @@ import 'package:http/http.dart' as http;
 class AssestsController extends GetxController {
   List<Asset> assets = [];
   String active = "";
+  Asset? asset;
+  RxString id = ''.obs;
+  RxString empId = ''.obs;
 
   @override
-  void initState() {}
+  void initState() {
+    fetchAssetById();
+  }
 
   Future<void> fetchAssetById() async {
     http.Response response = await http.post(
@@ -21,8 +26,10 @@ class AssestsController extends GetxController {
       },
       body: json.encode({
         "qrvalue": {
-          "id": "2",
-          "emp_id": "1",
+          "id": AppController.id,
+          "emp_id": AppController.empId,
+          // "id": '1',
+          // "emp_id": '2',
         }
       }),
     );

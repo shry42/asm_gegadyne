@@ -22,10 +22,10 @@ class loginController extends GetxController {
       Uri.parse('http://192.168.100.45:4000/api/users/login'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode({
-        // "emailId": emailId.value,
-        // "password": password.value,
-        "emailId": "Shravan.y@gegadyne.com",
-        "password": "Pass@123",
+        "emailId": emailId.value,
+        "password": password.value,
+        // "emailId": "Shravan.y@gegadyne.com",
+        // "password": "Pass@123",
       }),
     );
     if (response.statusCode == 200) {
