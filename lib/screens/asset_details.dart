@@ -290,7 +290,11 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
       String initialValue, Function(String)? onChanged) {
     return TextFormField(
       initialValue: initialValue,
-      onChanged: onChanged != null ? (newValue) => onChanged(newValue) : null,
+      onChanged: onChanged != null
+          ? (newValue) {
+              onChanged.call(newValue);
+            }
+          : null,
 
       // Add onChanged or controller to handle edited values
     );
