@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'dart:math';
 
-import 'package:asm_gegadyne/api_services/api_service_main.dart';
+import 'package:asm_gegadyne/api_services/api_service.dart';
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/models/user_model.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,14 +16,8 @@ class loginController extends GetxController {
   User? user;
   String token = "";
 
-  @override
-  void initState() {
-    //
-    loginUser();
-    super.onInit();
-  }
-
-  Future<void> loginUser() async {
+  Future<void> loginUser(BuildContext context) async {
+    // throw Exception();
     http.Response response = await http.post(
       Uri.parse('http://192.168.100.45:4000/api/users/login'),
       headers: {'Content-Type': 'application/json'},
