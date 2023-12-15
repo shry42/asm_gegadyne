@@ -227,13 +227,13 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
               },
             ),
             // ... (other detail items)
-
-            ElevatedButton(
-              onPressed: () async {
-                await editAssetController.editAssetPost();
-              },
-              child: Text("Update"),
-            ),
+            if (role == "Superadmin")
+              ElevatedButton(
+                onPressed: () async {
+                  await editAssetController.editAssetPost();
+                },
+                child: Text("Update"),
+              ),
           ],
         ),
       ),
