@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/models/asset_model.dart';
+import 'package:asm_gegadyne/screens/asset_details%20copy.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -37,7 +38,9 @@ class AssestsController extends GetxController {
       Map<String, dynamic> result = json.decode(response.body);
       List<dynamic> data = result['data'];
       assets = data.map((item) => Asset.fromJson(item)).toList();
+
       return assets;
+
       // Map<String, dynamic> position = data[0];
 
       // Map<String, dynamic> keyValue = position[0];

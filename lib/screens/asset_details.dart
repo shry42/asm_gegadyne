@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_controller.dart';
+import 'package:asm_gegadyne/screens/qr_scanner%20copy.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -226,13 +227,29 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                 });
               },
             ),
+            SizedBox(
+              height: 35,
+            ),
             // ... (other detail items)
             if (role == "Superadmin")
-              ElevatedButton(
-                onPressed: () async {
-                  await editAssetController.editAssetPost();
-                },
-                child: Text("Update"),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await editAssetController.editAssetPost();
+
+                    Get.defaultDialog(
+                      title: "Success!",
+                      middleText: "Feilds updated successfully",
+                      textConfirm: "OK",
+                      confirmTextColor: Colors.white,
+                      onConfirm: () {
+                        Get.offAll(QRScannerScreen()); // Close the dialog
+                      },
+                    );
+                    return;
+                  },
+                  child: Text("Update"),
+                ),
               ),
           ],
         ),

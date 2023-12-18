@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_controller.dart';
+import 'package:asm_gegadyne/screens/qr_scanner%20copy.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -34,33 +36,33 @@ class AssetsEditController extends GetxController {
         'Authorization': 'Bearer ${AppController.accessToken}',
       },
       body: json.encode({
-        // "id": id.value.toString(),
-        // "emp_Id": empId.value.toString(),
-        // "make": make.value.toString(),
-        // "serialNo": serialNo.value.toString(),
-        // "assetTag": assetTag.value.toString(),
-        // "imeiNo": imeiNo.value.toString(),
-        // "OSversion": OSversion.value.toString(),
-        // "SSD": SSD.value.toString(),
-        // "ram": ram.value.toString(),
-        // "processor": processor.value.toString(),
-        // "lanMacAddress": ram.value.toString(),
-        // "wifiMacAddress": wifiMacAddress.value.toString(),
-        // "approvalStatus": approvalStatus.value.toString()
+        "id": '${AppController.aid}' ?? id.value.toString(),
+        "emp_Id": '${AppController.aempId}' ?? empId.value.toString(),
+        "make": make.value.toString(),
+        "serialNo": serialNo.value.toString(),
+        "assetTag": assetTag.value.toString(),
+        "imeiNo": imeiNo.value.toString(),
+        "OSversion": OSversion.value.toString(),
+        "SSD": SSD.value.toString(),
+        "ram": ram.value.toString(),
+        "processor": processor.value.toString(),
+        "lanMacAddress": ram.value.toString(),
+        "wifiMacAddress": wifiMacAddress.value.toString(),
+        "approvalStatus": approvalStatus.value.toString()
 
-        "id": "${AppController.aid}",
-        "emp_Id": "${AppController.aempId}",
-        "make": "${AppController.make}",
-        "serialNo": "${AppController.serialNo}",
-        "assetTag": "${AppController.assetTag}",
-        "imeiNo": "${AppController.imeiNo}",
-        "OSversion": "${AppController.OSversion}",
-        "SSD": "${AppController.SSD}",
-        "ram": "${AppController.ram}",
-        "processor": "${AppController.processor}",
-        "lanMacAddress": "${AppController.lanMacAddress}",
-        "wifiMacAddress": "${AppController.wifiMacAddress}",
-        "approvalStatus": "${AppController.approvalStatus}",
+        // "id": "${AppController.aid}",
+        // "emp_Id": "${AppController.aempId}",
+        // "make": "${AppController.make}",
+        // "serialNo": "${AppController.serialNo}",
+        // "assetTag": "${AppController.assetTag}",
+        // "imeiNo": "${AppController.imeiNo}",
+        // "OSversion": "${AppController.OSversion}",
+        // "SSD": "${AppController.SSD}",
+        // "ram": "${AppController.ram}",
+        // "processor": "${AppController.processor}",
+        // "lanMacAddress": "${AppController.lanMacAddress}",
+        // "wifiMacAddress": "${AppController.wifiMacAddress}",
+        // "approvalStatus": "${AppController.approvalStatus}",
 
         // "id": 4,
         // "emp_Id": "1",
