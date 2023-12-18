@@ -375,8 +375,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       ac.assets[0].make.toString(),
                       (newValue) => editAssetController.make.value = newValue,
                     )
-                  : Text(
-                      '${ac.assets[0].make.toString()}',
+                  : Obx(
+                      () => Text(
+                        '${editAssetController.make}',
+                      ),
                     ),
               isEditing: isEditing,
               onEditPressed: () {
@@ -396,8 +398,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       (newValue) =>
                           editAssetController.serialNo.value = newValue,
                     )
-                  : Text(
-                      '${ac.assets[0].serialNo.toString()}',
+                  : Obx(
+                      () => Text(
+                        '${editAssetController.serialNo}',
+                      ),
                     ),
               isEditing: isEditing,
               onEditPressed: () {
@@ -417,8 +421,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       (newValue) =>
                           editAssetController.assetTag.value = newValue,
                     )
-                  : Text(
-                      '${ac.assets[0].assetTag.toString()}',
+                  : Obx(
+                      () => Text(
+                        '${editAssetController.assetTag}',
+                      ),
                     ),
               isEditing: isEditing,
               onEditPressed: () {
@@ -437,8 +443,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       ac.assets[0].imeiNo.toString(),
                       (newValue) => editAssetController.imeiNo.value = newValue,
                     )
-                  : Text(
-                      '${ac.assets[0].imeiNo.toString()}',
+                  : Obx(
+                      () => Text(
+                        '${editAssetController.imeiNo}',
+                      ),
                     ),
               isEditing: isEditing,
               onEditPressed: () {
@@ -458,8 +466,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       (newValue) =>
                           editAssetController.OSversion.value = newValue,
                     )
-                  : Text(
-                      '${ac.assets[0].osVersion.toString()}',
+                  : Obx(
+                      () => Text(
+                        '${editAssetController.OSversion}',
+                      ),
                     ),
               isEditing: isEditing,
               onEditPressed: () {
@@ -478,8 +488,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       ac.assets[0].ssd.toString(),
                       (newValue) => editAssetController.SSD.value = newValue,
                     )
-                  : Text(
-                      '${ac.assets[0].ssd.toString()}',
+                  : Obx(
+                      () => Text(
+                        '${editAssetController.SSD}',
+                      ),
                     ),
               isEditing: isEditing,
               onEditPressed: () {
@@ -498,8 +510,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       ac.assets[0].ram.toString(),
                       (newValue) => editAssetController.ram.value = newValue,
                     )
-                  : Text(
-                      '${ac.assets[0].ram.toString()}',
+                  : Obx(
+                      () => Text(
+                        '${editAssetController.ram}',
+                      ),
                     ),
               isEditing: isEditing,
               onEditPressed: () {
@@ -519,8 +533,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       (newValue) =>
                           editAssetController.processor.value = newValue,
                     )
-                  : Text(
-                      '${ac.assets[0].processor.toString()}',
+                  : Obx(
+                      () => Text(
+                        '${editAssetController.processor}',
+                      ),
                     ),
               isEditing: isEditing,
               onEditPressed: () {
@@ -540,8 +556,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       (newValue) =>
                           editAssetController.lanMacAddress.value = newValue,
                     )
-                  : Text(
-                      '${ac.assets[0].lanMacAddress.toString()}',
+                  : Obx(
+                      () => Text(
+                        '${editAssetController.lanMacAddress}',
+                      ),
                     ),
               isEditing: isEditing,
               onEditPressed: () {
@@ -561,8 +579,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       (newValue) =>
                           editAssetController.wifiMacAddress.value = newValue,
                     )
-                  : Text(
-                      '${ac.assets[0].wifiMacAddress.toString()}',
+                  : Obx(
+                      () => Text(
+                        '${editAssetController.wifiMacAddress}',
+                      ),
                     ),
               isEditing: isEditing,
               onEditPressed: () {
@@ -582,8 +602,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       (newValue) =>
                           editAssetController.approvalStatus.value = newValue,
                     )
-                  : Text(
-                      '${ac.assets[0].approvalStatus.toString()}',
+                  : Obx(
+                      () => Text(
+                        '${editAssetController.approvalStatus}',
+                      ),
                     ),
               isEditing: isEditing,
               onEditPressed: () {

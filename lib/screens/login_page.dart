@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    Get.find<loginController>().dispose();
+    // Get.find<loginController>().dispose();
     c.logout();
   }
 
