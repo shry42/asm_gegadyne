@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          await c.loginUser(context);
+                          await c.simulateLogin();
                           if (c.user?.emailId == null) {
                             Get.defaultDialog(
                               title: "Error",
@@ -148,6 +148,8 @@ class _HomePageState extends State<HomePage> {
                           // }
                           await Get.to(() => UserDetailsScreen(),
                               transition: Transition.rightToLeftWithFade);
+                          c.emailId.value = "";
+                          c.password.value = "";
                           // Fluttertoast.showToast(msg: "Logged in successfully");
                           // toast("Logged in successfully");
                         } else {
