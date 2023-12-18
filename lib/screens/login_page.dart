@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/login_controllers.dart';
 import 'package:asm_gegadyne/screens/user_details_screen.dart';
 import 'package:asm_gegadyne/utils/toast_notify.dart';
@@ -10,14 +11,14 @@ import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
 
   TextEditingController passController = TextEditingController();
@@ -25,6 +26,13 @@ class _HomePageState extends State<HomePage> {
   final loginController c = Get.put(loginController());
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    Get.find<loginController>().dispose();
+    c.logout();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +69,7 @@ class _HomePageState extends State<HomePage> {
                     controller: emailController,
                     onChanged: (value) {
                       c.emailId.value = emailController.text;
+                      // AppController.setemailId(emailController.text);
                     },
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -69,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                         labelText: 'Email',
                         hintText: 'user_id@gegadyne.com'),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
+                      if (value == null || value.isEmpty || value == "") {
                         // toast("Email and password cannot be empty");
                         return 'Please enter valid email';
                       }
@@ -118,7 +127,12 @@ class _HomePageState extends State<HomePage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+                          // await c.simulateLogin();   for Mock Api
                           await c.loginUser(context);
+                          if (emailController.text == "" ||
+                              passController.text == "") {
+                            toast("Please fill in details properly");
+                          }
                           if (c.user?.emailId == null) {
                             Get.defaultDialog(
                               title: "Error",
@@ -146,8 +160,15 @@ class _HomePageState extends State<HomePage> {
                           //   );
                           //   return;
                           // }
-                          await Get.to(() => UserDetailsScreen(),
+                          await Get.offAll(() => UserDetailsScreen(),
                               transition: Transition.rightToLeftWithFade);
+                          // Get.reset();
+                          emailController.text = "";
+                          passController.text = "";
+                          c.logout();
+                          c.emailId.value = "";
+                          c.password.value = "";
+                          Get.reset();
                           // Fluttertoast.showToast(msg: "Logged in successfully");
                           // toast("Logged in successfully");
                         } else {

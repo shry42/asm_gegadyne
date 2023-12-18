@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_controller.dart';
+import 'package:asm_gegadyne/screens/asset_details%20copy.dart';
 import 'package:asm_gegadyne/screens/qr_scanner%20copy.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,24 +10,27 @@ import 'package:http/http.dart' as http;
 
 class AssetsEditController extends GetxController {
   final AssestsController ac = Get.put(AssestsController());
+  // RxString status = "".obs;
   RxString updateStatus = "".obs;
-  RxString firstName = "${AppController.firstName}".obs;
-  RxString ram = "${AppController.ram}".obs;
-  RxString lastName = "${AppController.lastName}".obs;
-  RxString id = "${AppController.aid}".obs;
-  RxString empId = "${AppController.aempId}".obs;
-  RxString isActive = "${AppController.isActive}".obs;
-  RxString make = "${AppController.make}".obs;
-  RxString serialNo = "${AppController.serialNo}".obs;
-  RxString assetTag = "${AppController.assetTag}".obs;
-  RxString imeiNo = "${AppController.imeiNo}".obs;
-  RxString OSversion = "${AppController.OSversion}".obs;
-  RxString SSD = "${AppController.SSD}".obs;
+  RxString firstName = "".obs;
+  RxString ram = "".obs;
+  RxString lastName = "".obs;
+  RxString id = "".obs;
+  RxString empId = "".obs;
+  RxString isActive = "".obs;
+  RxString make = "".obs;
+  RxString serialNo = "".obs;
+  RxString assetTag = "".obs;
+  RxString imeiNo = "".obs;
+  RxString OSversion = "".obs;
+  RxString SSD = "".obs;
 
   RxString processor = "${AppController.processor}".obs;
-  RxString lanMacAddress = AppController.lanMacAddress ?? "".obs;
+  RxString lanMacAddress = "${AppController.lanMacAddress}".obs;
   RxString wifiMacAddress = "${AppController.wifiMacAddress}".obs;
   RxString approvalStatus = "${AppController.approvalStatus}".obs;
+  RxString createdBy = "${AppController.createdBy}".obs;
+  RxString createdAt = "${AppController.createdAt}".obs;
 
   Future<void> editAssetPost() async {
     http.Response response = await http.post(
@@ -36,8 +40,8 @@ class AssetsEditController extends GetxController {
         'Authorization': 'Bearer ${AppController.accessToken}',
       },
       body: json.encode({
-        "id": '${AppController.aid}' ?? id.value.toString(),
-        "emp_Id": '${AppController.aempId}' ?? empId.value.toString(),
+        "id": id.value.toString(),
+        "emp_Id": empId.value.toString(),
         "make": make.value.toString(),
         "serialNo": serialNo.value.toString(),
         "assetTag": assetTag.value.toString(),
@@ -81,7 +85,66 @@ class AssetsEditController extends GetxController {
     );
     if (response.statusCode == 200) {
       Map<String, dynamic> result = json.decode(response.body);
-      updateStatus = result['message'];
+      // updateStatus = result['message'];
+      bool? status = result['status'];
+
+      if (status == true) {
+        Get.defaultDialog(
+          title: "Success",
+          middleText: "Assets updated successfully\n  Re-Scan to verify",
+          textConfirm: "OK",
+          confirmTextColor: Colors.white,
+          onConfirm: () async {
+            Get.back(); // Close the dialog
+            // Get.offAll(QRScannerScreen());
+          },
+        );
+      } else {
+        Get.defaultDialog(
+          title: "Error",
+          middleText: "Could not update",
+          textConfirm: "OK",
+          confirmTextColor: Colors.white,
+          onConfirm: () {
+            Get.back(); // Close the dialog
+          },
+        );
+      }
     }
   }
 }
+
+//Mocked API
+
+// Future<void> editAssetPost() async {
+//     // Simulated response data (mocked response similar to the provided data)
+//     final simulatedResponse = {
+//       "status": true,
+//       "message": "Assets update successfully"
+//     };
+
+//     // Process the simulated response as if it came from an API request
+//     if (simulatedResponse['status'] == true) {
+//       updateStatus.value = (simulatedResponse['message']??"").toString();
+//       Get.defaultDialog(
+//         title: "Success",
+//         middleText: "Assets updated successfully",
+//         textConfirm: "OK",
+//         confirmTextColor: Colors.white,
+//         onConfirm: () {
+//           Get.back(); // Close the dialog
+//         },
+//       );
+//     } else {
+//       Get.defaultDialog(
+//         title: "Error",
+//         middleText: "Could not update",
+//         textConfirm: "OK",
+//         confirmTextColor: Colors.white,
+//         onConfirm: () {
+//           Get.back(); // Close the dialog
+//         },
+//       );
+//     }
+//   }
+

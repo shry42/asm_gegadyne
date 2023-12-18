@@ -3,6 +3,7 @@ class AppController {
   static int? _id;
   static int? _empId;
   static String? _role;
+  static String? _emailId;
 
   //For assets
   static String? _aid;
@@ -43,6 +44,11 @@ class AppController {
   static get role => _role;
   static setRole(value) {
     _role = value;
+  }
+
+  static get emailId => _emailId;
+  static setemailId(value) {
+    _emailId = value;
   }
 
   ///For assets

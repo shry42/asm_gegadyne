@@ -1,10 +1,14 @@
+import 'dart:developer';
 import 'dart:ffi';
 
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_controller.dart';
+import 'package:asm_gegadyne/screens/login_page.dart';
 import 'package:asm_gegadyne/screens/qr_scanner%20copy.dart';
+import 'package:asm_gegadyne/utils/dialogbox_password.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 import '../controllers/assets_edit_controller.dart';
 
@@ -36,9 +40,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
   String? lastName;
   String? ram;
   @override
-  void setState(VoidCallback fn) {
+  void initState() {
     // TODO: implement setState
     firstName = ac.assets[0].firstName;
+
     lastName = ac.assets[0].lastName;
     ram = ac.assets[0].ram.toString();
     id = ac.assets[0].id.toString();
@@ -56,6 +61,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
     approvalStatus = ac.assets[0].approvalStatus;
 
     createdBy = ac.assets[0].createdBy.toString();
+    createdAt = ac.assets[0].createdAt.toString();
 
     isActive = ac.assets[0].isActive.toString();
     ram = ac.assets[0].ram.toString();
@@ -73,13 +79,20 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
     AppController.setprocessor(processor);
     AppController.setwifiMacAddress(wifiMacAddress);
     AppController.setlanMacAddress(lanMacAddress);
-
     AppController.setapprovalStatus(approvalStatus);
     AppController.setcreatedBy(createdBy);
     AppController.setisActive(isActive);
     AppController.setram(ram);
+    AppController.setcreatedBy(createdBy);
+    AppController.setcreatedAt(createdAt);
 
-    super.setState(fn);
+    // -----------------------------------------------\\
+
+    // log(AppController.firstName.toString());
+    // log(AppController.lastName);
+
+    // log(AppController.id);
+    super.initState();
   }
 
   String role = AppController.role;
@@ -87,30 +100,175 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
   TextEditingController editText = TextEditingController();
   // Maintain individual editing state for each field
   bool isFirstNameEditing = false;
-  bool isLastNameEditing = false;
+
+  bool isMakeEditing = false;
+
+  bool isSerialNoEditing = false;
+
+  bool isAssetTageEditing = false;
+
+  bool isImeiEditing = false;
+
+  bool isOsVersionEditing = false;
+
+  bool isSsdEditing = false;
+
+  bool isRamEditing = false;
+
+  bool isProcessorEditing = false;
+  bool isLanMacAddressEditing = false;
+
+  bool isWifiMacAddressEditing = false;
+  bool isApprovalStatusEditing = false;
+
   // Add similar boolean variables for each field
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Asset Details'),
+        // title: Text('Assets'),
         actions: [
+          if (role == 'Superadmin')
+            Shimmer(
+              duration: Duration(seconds: 2),
+              // This is NOT the default value. Default value: Duration(seconds: 0)
+              interval: Duration(milliseconds: 20),
+              // This is the default value
+              color: Colors.white,
+              // This is the default value
+              colorOpacity: 1,
+              // This is the default value
+              enabled: true,
+              // This is the default value
+              direction: ShimmerDirection.fromLTRB(),
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(Get.defaultDialog(
+                    title: 'Change Password',
+                    content: DialogBox(),
+                  ));
+                },
+                child: Container(
+                  height: 30,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      color: Colors.white70,
+                      borderRadius: BorderRadius.circular(6)),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Text(
+                          'Change Password',
+                          style: TextStyle(color: Colors.black, fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          SizedBox(width: 10),
           // Conditionally display the edit button only for superadmins
           if (role == 'Superadmin')
-            IconButton(
-              icon: Icon(Icons.edit),
-              onPressed: () {
-                setState(() {
-                  // Toggle the edit mode for all fields
-                  isEditing = !isEditing;
-                  // Reset the editing state for individual fields
-                  isFirstNameEditing = false;
-                  isLastNameEditing = false;
-                  // Reset editing state for other fields
-                });
-              },
+            // IconButton(
+            //   icon: Icon(Icons.edit),
+            //   onPressed: () {
+            //     setState(() {
+            //       // Toggle the edit mode for all fields
+            //       isEditing = !isEditing;
+            //       // Reset the editing state for individual fields
+            //       isFirstNameEditing = false;
+            //       isMakeEditing = false;
+            //       isSerialNoEditing = false;
+            //       isAssetTageEditing = false;
+            //       isImeiEditing = false;
+            //       isOsVersionEditing = false;
+            //       isSsdEditing = false;
+            //       isRamEditing = false;
+            //       isProcessorEditing = false;
+            //       isLanMacAddressEditing = false;
+            //       isWifiMacAddressEditing = false;
+
+            //       // Reset editing state for other fields
+            //     });
+            //   },
+
+            Shimmer(
+              duration: Duration(seconds: 2),
+              // This is NOT the default value. Default value: Duration(seconds: 0)
+              interval: Duration(milliseconds: 20),
+              // This is the default value
+              color: Colors.white,
+              // This is the default value
+              colorOpacity: 1,
+              // This is the default value
+              enabled: true,
+              // This is the default value
+              direction: ShimmerDirection.fromLTRB(),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    // Toggle the edit mode for all fields
+                    isEditing = !isEditing;
+                    // Reset the editing state for individual fields
+                    isFirstNameEditing = false;
+                    isMakeEditing = false;
+                    isSerialNoEditing = false;
+                    isAssetTageEditing = false;
+                    isImeiEditing = false;
+                    isOsVersionEditing = false;
+                    isSsdEditing = false;
+                    isRamEditing = false;
+                    isProcessorEditing = false;
+                    isLanMacAddressEditing = false;
+                    isWifiMacAddressEditing = false;
+
+                    // Reset editing state for other fields
+                  });
+                },
+                child: Container(
+                  height: 30,
+                  width: 60,
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      color: Colors.white70,
+                      borderRadius: BorderRadius.circular(6)),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Text(
+                          'Edit',
+                          style: TextStyle(color: Colors.black, fontSize: 12),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
+
+          const SizedBox(width: 10),
+          GestureDetector(
+            onTap: () {
+              Get.offAll(const LoginPage(),
+                  transition: Transition.rightToLeftWithFade,
+                  duration: Duration(milliseconds: 200));
+            },
+            child: Container(
+              child: Image.asset(
+                'assets/logout.png',
+                height: 38,
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          // ),
         ],
       ),
       body: SingleChildScrollView(
@@ -120,98 +278,99 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
           children: <Widget>[
             _buildDetailItem(
               Icons.person,
-              'First Name',
+              'Full Name',
               isFirstNameEditing
                   ? _buildEditableTextField(
                       ac.assets[0].firstName,
                       (newValue) =>
                           editAssetController.firstName.value = newValue,
                     )
-                  : Text('${ac.assets[0].firstName}'),
+                  : Text('${ac.assets[0].firstName}' +
+                      '  ${ac.assets[0].lastName}'),
               isEditing: isEditing,
               onEditPressed: () {
                 setState(() {
                   // Toggle the edit mode for First Name field
-                  isFirstNameEditing = !isFirstNameEditing;
+                  // isFirstNameEditing = !isFirstNameEditing;
                 });
               },
             ),
-            _buildDetailItem(
-              Icons.person,
-              'Last Name',
-              isFirstNameEditing
-                  ? _buildEditableTextField(
-                      ac.assets[0].lastName,
-                      (newValue) =>
-                          editAssetController.lastName.value = newValue,
-                    )
-                  : Text('${ac.assets[0].lastName}'),
-              isEditing: isEditing,
-              onEditPressed: () {
-                setState(() {
-                  // Toggle the edit mode for First Name field
-                  isFirstNameEditing = !isFirstNameEditing;
-                });
-              },
-            ),
-            _buildDetailItem(
-              Icons.confirmation_number,
-              'ID',
-              isFirstNameEditing
-                  ? _buildEditableTextField(
-                      ac.assets[0].id.toString(),
-                      (newValue) => editAssetController.id.value = newValue,
-                    )
-                  : Text('${ac.assets[0].id.toString()}'),
-              isEditing: isEditing,
-              onEditPressed: () {
-                setState(() {
-                  // Toggle the edit mode for First Name field
-                  isFirstNameEditing = !isFirstNameEditing;
-                });
-              },
-            ),
-            _buildDetailItem(
-              Icons.confirmation_number,
-              'EMP ID',
-              isFirstNameEditing
-                  ? _buildEditableTextField(
-                      ac.assets[0].empId.toString(),
-                      (newValue) => editAssetController.empId.value = newValue,
-                    )
-                  : Text('${ac.assets[0].empId.toString()}'),
-              isEditing: isEditing,
-              onEditPressed: () {
-                setState(() {
-                  // Toggle the edit mode for First Name field
-                  isFirstNameEditing = !isFirstNameEditing;
-                });
-              },
-            ),
-            _buildDetailItem(
-              Icons.check_circle_outline,
-              'Active Status',
-              isFirstNameEditing
-                  ? _buildEditableTextField(
-                      ac.assets[0].isActive.toString(),
-                      (newValue) =>
-                          editAssetController.isActive.value = newValue,
-                    )
-                  : Text(
-                      '${ac.assets[0].isActive.toString()}',
-                    ),
-              isEditing: isEditing,
-              onEditPressed: () {
-                setState(() {
-                  // Toggle the edit mode for First Name field
-                  isFirstNameEditing = !isFirstNameEditing;
-                });
-              },
-            ),
+            // _buildDetailItem(
+            //   Icons.person,
+            //   'Last Name',
+            //   isFirstNameEditing
+            //       ? _buildEditableTextField(
+            //           ac.assets[0].lastName,
+            //           (newValue) =>
+            //               editAssetController.lastName.value = newValue,
+            //         )
+            //       : Text('${ac.assets[0].lastName}'),
+            //   isEditing: isEditing,
+            //   onEditPressed: () {
+            //     setState(() {
+            //       // Toggle the edit mode for First Name field
+            //       isFirstNameEditing = !isFirstNameEditing;
+            //     });
+            //   },
+            // ),
+            // _buildDetailItem(
+            //   Icons.confirmation_number,
+            //   'ID',
+            //   isFirstNameEditing
+            //       ? _buildEditableTextField(
+            //           ac.assets[0].id.toString(),
+            //           (newValue) => editAssetController.id.value = newValue,
+            //         )
+            //       : Text('${ac.assets[0].id.toString()}'),
+            //   isEditing: isEditing,
+            //   onEditPressed: () {
+            //     setState(() {
+            //       // Toggle the edit mode for First Name field
+            //       isFirstNameEditing = !isFirstNameEditing;
+            //     });
+            //   },
+            // ),
+            // _buildDetailItem(
+            //   Icons.confirmation_number,
+            //   'EMP ID',
+            //   isFirstNameEditing
+            //       ? _buildEditableTextField(
+            //           ac.assets[0].empId.toString(),
+            //           (newValue) => editAssetController.empId.value = newValue,
+            //         )
+            //       : Text('${ac.assets[0].empId.toString()}'),
+            //   isEditing: isEditing,
+            //   onEditPressed: () {
+            //     setState(() {
+            //       // Toggle the edit mode for First Name field
+            //       isFirstNameEditing = !isFirstNameEditing;
+            //     });
+            //   },
+            // ),
+            // _buildDetailItem(
+            //   Icons.check_circle_outline,
+            //   'Active Status',
+            //   isFirstNameEditing
+            //       ? _buildEditableTextField(
+            //           ac.assets[0].isActive.toString(),
+            //           (newValue) =>
+            //               editAssetController.isActive.value = newValue,
+            //         )
+            //       : Text(
+            //           '${ac.assets[0].isActive.toString()}',
+            //         ),
+            //   isEditing: isEditing,
+            //   onEditPressed: () {
+            //     setState(() {
+            //       // Toggle the edit mode for First Name field
+            //       isFirstNameEditing = !isFirstNameEditing;
+            //     });
+            //   },
+            // ),
             _buildDetailItem(
               Icons.devices,
               'Make',
-              isFirstNameEditing
+              isMakeEditing
                   ? _buildEditableTextField(
                       ac.assets[0].make.toString(),
                       (newValue) => editAssetController.make.value = newValue,
@@ -223,32 +382,296 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
               onEditPressed: () {
                 setState(() {
                   // Toggle the edit mode for First Name field
-                  isFirstNameEditing = !isFirstNameEditing;
+                  isMakeEditing = !isMakeEditing;
                 });
               },
             ),
-            SizedBox(
-              height: 35,
-            ),
-            // ... (other detail items)
-            if (role == "Superadmin")
-              Center(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await editAssetController.editAssetPost();
 
-                    Get.defaultDialog(
-                      title: "Success!",
-                      middleText: "Feilds updated successfully",
-                      textConfirm: "OK",
-                      confirmTextColor: Colors.white,
-                      onConfirm: () {
-                        Get.offAll(QRScannerScreen()); // Close the dialog
-                      },
-                    );
-                    return;
+            _buildDetailItem(
+              Icons.confirmation_number,
+              'serialNo',
+              isSerialNoEditing
+                  ? _buildEditableTextField(
+                      ac.assets[0].serialNo.toString(),
+                      (newValue) =>
+                          editAssetController.serialNo.value = newValue,
+                    )
+                  : Text(
+                      '${ac.assets[0].serialNo.toString()}',
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  // Toggle the edit mode for First Name field
+                  isSerialNoEditing = !isSerialNoEditing;
+                });
+              },
+            ),
+
+            _buildDetailItem(
+              Icons.confirmation_number,
+              'assetTag',
+              isAssetTageEditing
+                  ? _buildEditableTextField(
+                      ac.assets[0].assetTag.toString(),
+                      (newValue) =>
+                          editAssetController.assetTag.value = newValue,
+                    )
+                  : Text(
+                      '${ac.assets[0].assetTag.toString()}',
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  // Toggle the edit mode for First Name field
+                  isAssetTageEditing = !isAssetTageEditing;
+                });
+              },
+            ),
+
+            _buildDetailItem(
+              Icons.confirmation_number,
+              'imeiNo',
+              isImeiEditing
+                  ? _buildEditableTextField(
+                      ac.assets[0].imeiNo.toString(),
+                      (newValue) => editAssetController.imeiNo.value = newValue,
+                    )
+                  : Text(
+                      '${ac.assets[0].imeiNo.toString()}',
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  // Toggle the edit mode for First Name field
+                  isImeiEditing = !isImeiEditing;
+                });
+              },
+            ),
+
+            _buildDetailItem(
+              Icons.mobile_screen_share,
+              'OSversion',
+              isOsVersionEditing
+                  ? _buildEditableTextField(
+                      ac.assets[0].osVersion.toString(),
+                      (newValue) =>
+                          editAssetController.OSversion.value = newValue,
+                    )
+                  : Text(
+                      '${ac.assets[0].osVersion.toString()}',
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  // Toggle the edit mode for First Name field
+                  isOsVersionEditing = !isOsVersionEditing;
+                });
+              },
+            ),
+
+            _buildDetailItem(
+              Icons.memory,
+              'SSD',
+              isSsdEditing
+                  ? _buildEditableTextField(
+                      ac.assets[0].ssd.toString(),
+                      (newValue) => editAssetController.SSD.value = newValue,
+                    )
+                  : Text(
+                      '${ac.assets[0].ssd.toString()}',
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  // Toggle the edit mode for First Name field
+                  isSsdEditing = !isSsdEditing;
+                });
+              },
+            ),
+
+            _buildDetailItem(
+              Icons.memory,
+              'Ram',
+              isRamEditing
+                  ? _buildEditableTextField(
+                      ac.assets[0].ram.toString(),
+                      (newValue) => editAssetController.ram.value = newValue,
+                    )
+                  : Text(
+                      '${ac.assets[0].ram.toString()}',
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  // Toggle the edit mode for First Name field
+                  isRamEditing = !isRamEditing;
+                });
+              },
+            ),
+
+            _buildDetailItem(
+              Icons.memory,
+              'Processor',
+              isProcessorEditing
+                  ? _buildEditableTextField(
+                      ac.assets[0].processor.toString(),
+                      (newValue) =>
+                          editAssetController.processor.value = newValue,
+                    )
+                  : Text(
+                      '${ac.assets[0].processor.toString()}',
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  // Toggle the edit mode for First Name field
+                  isProcessorEditing = !isProcessorEditing;
+                });
+              },
+            ),
+
+            _buildDetailItem(
+              Icons.network_wifi,
+              'lanMacAddress',
+              isLanMacAddressEditing
+                  ? _buildEditableTextField(
+                      ac.assets[0].lanMacAddress.toString(),
+                      (newValue) =>
+                          editAssetController.lanMacAddress.value = newValue,
+                    )
+                  : Text(
+                      '${ac.assets[0].lanMacAddress.toString()}',
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  // Toggle the edit mode for First Name field
+                  isLanMacAddressEditing = !isLanMacAddressEditing;
+                });
+              },
+            ),
+
+            _buildDetailItem(
+              Icons.network_wifi,
+              'wifiMacAddress',
+              isWifiMacAddressEditing
+                  ? _buildEditableTextField(
+                      ac.assets[0].wifiMacAddress.toString(),
+                      (newValue) =>
+                          editAssetController.wifiMacAddress.value = newValue,
+                    )
+                  : Text(
+                      '${ac.assets[0].wifiMacAddress.toString()}',
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  // Toggle the edit mode for First Name field
+                  isWifiMacAddressEditing = !isWifiMacAddressEditing;
+                });
+              },
+            ),
+
+            _buildDetailItem(
+              Icons.check_circle,
+              'approvalStatus',
+              isApprovalStatusEditing
+                  ? _buildEditableTextField(
+                      ac.assets[0].approvalStatus.toString(),
+                      (newValue) =>
+                          editAssetController.approvalStatus.value = newValue,
+                    )
+                  : Text(
+                      '${ac.assets[0].approvalStatus.toString()}',
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  // Toggle the edit mode for First Name field
+                  isApprovalStatusEditing = !isApprovalStatusEditing;
+                });
+              },
+            ),
+
+            // _buildDetailItem(
+            //   Icons.person,
+            //   'createdBy',
+            //   isFirstNameEditing
+            //       ? _buildEditableTextField(
+            //           ac.assets[0].createdBy.toString(),
+            //           (newValue) =>
+            //               editAssetController.createdBy.value = newValue,
+            //         )
+            //       : Text(
+            //           '${ac.assets[0].createdBy.toString()}',
+            //         ),
+            //   isEditing: isEditing,
+            //   onEditPressed: () {
+            //     setState(() {
+            //       // Toggle the edit mode for First Name field
+            //       isFirstNameEditing = !isFirstNameEditing;
+            //     });
+            //   },
+            // ),
+
+            // _buildDetailItem(
+            //   Icons.check_circle_outline,
+            //   'createdAt',
+            //   isFirstNameEditing
+            //       ? _buildEditableTextField(
+            //           ac.assets[0].createdAt.toString(),
+            //           (newValue) =>
+            //               editAssetController.createdAt.value = newValue,
+            //         )
+            //       : Text(
+            //           '${ac.assets[0].createdAt.toString()}',
+            //         ),
+            //   isEditing: isEditing,
+            //   onEditPressed: () {
+            //     setState(() {
+            //       // Toggle the edit mode for First Name field
+            //       isFirstNameEditing = !isFirstNameEditing;
+            //     });
+            //   },
+            // ),
+
+            // ... (other detail items)
+            if (role == "Superadmin" && isEditing == true)
+              Center(
+                child: GestureDetector(
+                  onTap: () async {
+                    await editAssetController.editAssetPost();
+                    setState(() {
+                      isEditing;
+                      isFirstNameEditing = false;
+                      isMakeEditing = false;
+                      isSerialNoEditing = false;
+                      isAssetTageEditing = false;
+                      isImeiEditing = false;
+                      isOsVersionEditing = false;
+                      isSsdEditing = false;
+                      isRamEditing = false;
+                      isProcessorEditing = false;
+                      isLanMacAddressEditing = false;
+                      isWifiMacAddressEditing = false;
+                    });
                   },
-                  child: Text("Update"),
+                  child: Container(
+                    height: 50,
+                    width: 200,
+                    child: Center(
+                        child: const Text(
+                      "Update",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    )),
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 1),
+                      borderRadius: BorderRadius.circular(40),
+                      color: Colors.white70,
+                    ),
+                  ),
                 ),
               ),
           ],
@@ -262,7 +685,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
     String label,
     Widget valueWidget, {
     required bool isEditing,
-    required VoidCallback onEditPressed,
+    VoidCallback? onEditPressed,
   }) {
     return Padding(
       padding: EdgeInsets.only(bottom: 12.0),
