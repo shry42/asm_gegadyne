@@ -30,11 +30,12 @@ class UserDetailsScreen extends StatelessWidget {
     //   AppController.setaccessToken(userData.user.)
     // }
 
-  return WillPopScope(
+    return WillPopScope(
       onWillPop: () async {
         return await Get.defaultDialog(
+          backgroundColor: Color.fromARGB(255, 201, 239, 157),
           title: "Exit?",
-          middleText: "Are you sure?",
+          middleText: "Are you sure? You'll be logged",
           textConfirm: 'Yes',
           textCancel: 'No',
           onConfirm: () {
@@ -144,7 +145,7 @@ class UserDetailsScreen extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () {
                                 //
-                                Get.to(QRScannerScreen(),
+                                Get.offAll(QRScannerScreen(),
                                     transition: Transition.fade,
                                     duration: Duration(milliseconds: 200));
                               },

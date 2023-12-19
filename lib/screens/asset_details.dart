@@ -3,6 +3,7 @@ import 'dart:ffi';
 
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_controller.dart';
+import 'package:asm_gegadyne/controllers/login_controllers.dart';
 import 'package:asm_gegadyne/screens/login_page.dart';
 import 'package:asm_gegadyne/screens/qr_scanner%20copy.dart';
 import 'package:asm_gegadyne/utils/dialogbox_password.dart';
@@ -21,6 +22,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
   final AssestsController ac = Get.put(AssestsController());
   final AssetsEditController editAssetController =
       Get.put(AssetsEditController());
+  final loginController lc = Get.put(loginController());
   String? id;
   String? emp_Id;
   String? make;
@@ -129,48 +131,48 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
       appBar: AppBar(
         // title: Text('Assets'),
         actions: [
-          if (role == 'Superadmin')
-            Shimmer(
-              duration: Duration(seconds: 2),
-              // This is NOT the default value. Default value: Duration(seconds: 0)
-              interval: Duration(milliseconds: 20),
-              // This is the default value
-              color: Colors.white,
-              // This is the default value
-              colorOpacity: 1,
-              // This is the default value
-              enabled: true,
-              // This is the default value
-              direction: ShimmerDirection.fromLTRB(),
-              child: GestureDetector(
-                onTap: () {
-                  Get.to(Get.defaultDialog(
-                    title: 'Change Password',
-                    content: DialogBox(),
-                  ));
-                },
-                child: Container(
-                  height: 30,
-                  width: 100,
-                  decoration: BoxDecoration(
-                      border: Border.all(),
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.circular(6)),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Text(
-                          'Change Password',
-                          style: TextStyle(color: Colors.black, fontSize: 12),
-                        ),
+          // if (role == 'Superadmin')
+          Shimmer(
+            duration: Duration(seconds: 2),
+            // This is NOT the default value. Default value: Duration(seconds: 0)
+            interval: Duration(milliseconds: 20),
+            // This is the default value
+            color: Colors.white,
+            // This is the default value
+            colorOpacity: 1,
+            // This is the default value
+            enabled: true,
+            // This is the default value
+            direction: ShimmerDirection.fromLTRB(),
+            child: GestureDetector(
+              onTap: () {
+                Get.to(Get.defaultDialog(
+                  title: 'Change Password',
+                  content: DialogBox(),
+                ));
+              },
+              child: Container(
+                height: 30,
+                width: 100,
+                decoration: BoxDecoration(
+                    border: Border.all(),
+                    color: Colors.white70,
+                    borderRadius: BorderRadius.circular(6)),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Text(
+                        'Change Password',
+                        style: TextStyle(color: Colors.black, fontSize: 12),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
+          ),
           SizedBox(width: 10),
           // Conditionally display the edit button only for superadmins
           if (role == 'Superadmin')
@@ -256,9 +258,12 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
           const SizedBox(width: 10),
           GestureDetector(
             onTap: () {
+              lc.onDelete;
               Get.offAll(const LoginPage(),
                   transition: Transition.rightToLeftWithFade,
                   duration: Duration(milliseconds: 200));
+              lc.logout();
+              lc.resetControllers();
             },
             child: Container(
               child: Image.asset(

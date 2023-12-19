@@ -29,9 +29,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
+    const LoginPage();
     super.initState();
-   
-    
   }
 
   @override
@@ -127,8 +126,10 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          await c.simulateLogin();  // for Mock Api
-                          // await c.loginUser(context);
+                          // // for Mock Api
+                          // await c.simulateLogin();
+
+                          await c.loginUser(context);
                           if (emailController.text == "" ||
                               passController.text == "") {
                             toast("Please fill in details properly");
@@ -144,36 +145,21 @@ class _LoginPageState extends State<LoginPage> {
                               },
                             );
                             return;
+                          } else {
+                            await Get.offAll(() => UserDetailsScreen(),
+                                transition: Transition.rightToLeftWithFade);
+                            // Get.reset();
+                            emailController.text = "";
+                            passController.text = "";
+                            // c.logout();
+                            c.emailId.value = "";
+                            c.password.value = "";
+                            Get.reset();
                           }
-                          // try {
-                          //   await c.loginUser(context);
-                          // } catch (err) {
-                          //   // Show error dialog for incorrect credentials
-                          //   Get.defaultDialog(
-                          //     title: "Error",
-                          //     middleText: "Email and password are incorrect",
-                          //     textConfirm: "OK",
-                          //     confirmTextColor: Colors.white,
-                          //     onConfirm: () {
-                          //       Get.back(); // Close the dialog
-                          //     },
-                          //   );
-                          //   return;
-                          // }
-                          await Get.offAll(() => UserDetailsScreen(),
-                              transition: Transition.rightToLeftWithFade);
-                          // Get.reset();
-                          emailController.text = "";
-                          passController.text = "";
-                          // c.logout();
-                          c.emailId.value = "";
-                          c.password.value = "";
-                          Get.reset();
-                          // Fluttertoast.showToast(msg: "Logged in successfully");
-                          // toast("Logged in successfully");
-                        } else {
-                          toast('Please fill the credentials correctly');
                         }
+                        // else {
+                        //   toast('Please fill the credentials correctly');
+                        // }
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
