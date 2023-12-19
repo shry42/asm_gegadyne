@@ -19,31 +19,31 @@ class UserDetailsScreen extends StatelessWidget {
     // String accessToken = "";
     // 'assets/qr_scanner.png'; // Replace with actual barcode image URL
 
-    if (userData.user == null) {
-      return Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }
+    // if (userData.user == null) {
+    //   return Scaffold(
+    //     body: Center(
+    //       child: CircularProgressIndicator(),
+    //     ),
+    //   );
+    // }
     // if(userData.user!=null){
     //   AppController.setaccessToken(userData.user.)
     // }
 
-    return PopScope(
-      canPop: true,
-      onPopInvoked: (didPop) async {
+  return WillPopScope(
+      onWillPop: () async {
         return await Get.defaultDialog(
-            title: "Exit?",
-            middleText: "Are you sure ?",
-            textConfirm: 'yes',
-            textCancel: 'No',
-            onConfirm: () {
-              Get.back(result: true);
-            },
-            onCancel: () {
-              Get.back(result: false);
-            });
+          title: "Exit?",
+          middleText: "Are you sure?",
+          textConfirm: 'Yes',
+          textCancel: 'No',
+          onConfirm: () {
+            Get.back(result: true);
+          },
+          onCancel: () {
+            Get.back(result: false);
+          },
+        );
       },
       child: Scaffold(
         appBar: AppBar(

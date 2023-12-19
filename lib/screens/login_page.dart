@@ -30,8 +30,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    // Get.find<loginController>().dispose();
-    c.logout();
+   
+    
   }
 
   @override
@@ -127,8 +127,8 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          // await c.simulateLogin();   for Mock Api
-                          await c.loginUser(context);
+                          await c.simulateLogin();  // for Mock Api
+                          // await c.loginUser(context);
                           if (emailController.text == "" ||
                               passController.text == "") {
                             toast("Please fill in details properly");
@@ -165,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                           // Get.reset();
                           emailController.text = "";
                           passController.text = "";
-                          c.logout();
+                          // c.logout();
                           c.emailId.value = "";
                           c.password.value = "";
                           Get.reset();
