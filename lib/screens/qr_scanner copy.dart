@@ -10,6 +10,8 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
 class QRScannerScreen extends StatefulWidget {
+  const QRScannerScreen({super.key});
+
   @override
   _QRScannerScreenState createState() => _QRScannerScreenState();
 }
@@ -60,12 +62,12 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Permission Denied'),
-        content: Text('Please grant camera permission to use QR scanner.'),
+        title: const Text('Permission Denied'),
+        content: const Text('Please grant camera permission to use QR scanner.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       ),
@@ -77,8 +79,8 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Permission Permanently Denied'),
-        content: Text(
+        title: const Text('Permission Permanently Denied'),
+        content: const Text(
             'Camera permission is permanently denied. Please go to app settings and grant the permission manually.No data is being collected'),
         actions: [
           TextButton(
@@ -86,11 +88,11 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
               // Open app settings
               openAppSettings();
             },
-            child: Text('Open Settings'),
+            child: const Text('Open Settings'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancel'),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -107,7 +109,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 Colors.lightGreen,
@@ -122,12 +124,12 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
             ),
           ),
           child: Column(children: [
-            Container(
+            SizedBox(
               height: 600,
               width: 500,
               child: Column(
                 children: [
-                  SizedBox(height: 80),
+                  const SizedBox(height: 80),
                   Container(
                     height: 300,
                     width: 280,
@@ -145,11 +147,11 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                   ),
                   // Button
 //Spacing
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   Shimmer(
-                    duration: Duration(seconds: 2),
+                    duration: const Duration(seconds: 2),
                     // This is NOT the default value. Default value: Duration(seconds: 0)
-                    interval: Duration(seconds: 1),
+                    interval: const Duration(seconds: 1),
                     // This is the default value
                     color: Colors.white,
                     // This is the default value
@@ -157,7 +159,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                     // This is the default value
                     enabled: true,
                     // This is the default value
-                    direction: ShimmerDirection.fromLTRB(),
+                    direction: const ShimmerDirection.fromLTRB(),
                     child: Container(
                       height: 50,
                       width: 260,
@@ -168,7 +170,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                         onPressed: () async {
                           //
                           await ac.fetchAssetById();
-                          Get.offAll(() => AssetDetailsScreen(),
+                          Get.offAll(() => const AssetDetailsScreen(),
                               transition: Transition.rightToLeft);
                         },
                         child: const Row(
@@ -186,8 +188,8 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Text('$firstName',
+                  const SizedBox(height: 10),
+                  Text(firstName,
                       style: const TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -208,7 +210,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
         qrText = scanData.code!;
         decodedData = json.decode(qrText);
         firstName = decodedData['firstName'] ?? 'Scan properly';
-        firstName = "Hello ${firstName}";
+        firstName = "Hello $firstName";
         id = decodedData['id'];
         AppController.setid(id);
         empId = decodedData['emp_Id'];

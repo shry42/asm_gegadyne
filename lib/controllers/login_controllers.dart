@@ -1,14 +1,8 @@
 import 'dart:convert';
 
-import 'dart:math';
-
-import 'package:asm_gegadyne/api_services/api_service.dart';
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/models/user_model.dart';
-import 'package:asm_gegadyne/screens/login_page.dart';
-import 'package:asm_gegadyne/screens/user_details_screen.dart';
 import 'package:asm_gegadyne/utils/toast_notify.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -21,7 +15,7 @@ class loginController extends GetxController {
   String token = "";
   String role = "";
 
-  Future<void> loginUser(BuildContext context) async {
+  Future<void> loginUser() async {
     // throw Exception();
     http.Response response = await http.post(
       Uri.parse('http://192.168.100.45:4000/api/users/login'),

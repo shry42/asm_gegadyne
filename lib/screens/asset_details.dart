@@ -1,11 +1,7 @@
-import 'dart:developer';
-import 'dart:ffi';
-
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_controller.dart';
 import 'package:asm_gegadyne/controllers/login_controllers.dart';
 import 'package:asm_gegadyne/screens/login_page.dart';
-import 'package:asm_gegadyne/screens/qr_scanner%20copy.dart';
 import 'package:asm_gegadyne/utils/dialogbox_password.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +10,8 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 import '../controllers/assets_edit_controller.dart';
 
 class AssetDetailsScreen extends StatefulWidget {
+  const AssetDetailsScreen({super.key});
+
   @override
   _AssetDetailsScreenState createState() => _AssetDetailsScreenState();
 }
@@ -133,9 +131,9 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
         actions: [
           // if (role == 'Superadmin')
           Shimmer(
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
             // This is NOT the default value. Default value: Duration(seconds: 0)
-            interval: Duration(milliseconds: 20),
+            interval: const Duration(milliseconds: 20),
             // This is the default value
             color: Colors.white,
             // This is the default value
@@ -143,7 +141,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
             // This is the default value
             enabled: true,
             // This is the default value
-            direction: ShimmerDirection.fromLTRB(),
+            direction: const ShimmerDirection.fromLTRB(),
             child: GestureDetector(
               onTap: () {
                 Get.to(Get.defaultDialog(
@@ -173,7 +171,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
               ),
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           // Conditionally display the edit button only for superadmins
           if (role == 'Superadmin')
             // IconButton(
@@ -200,9 +198,9 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
             //   },
 
             Shimmer(
-              duration: Duration(seconds: 2),
+              duration: const Duration(seconds: 2),
               // This is NOT the default value. Default value: Duration(seconds: 0)
-              interval: Duration(milliseconds: 20),
+              interval: const Duration(milliseconds: 20),
               // This is the default value
               color: Colors.white,
               // This is the default value
@@ -210,7 +208,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
               // This is the default value
               enabled: true,
               // This is the default value
-              direction: ShimmerDirection.fromLTRB(),
+              direction: const ShimmerDirection.fromLTRB(),
               child: GestureDetector(
                 onTap: () {
                   setState(() {
@@ -259,9 +257,9 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
           GestureDetector(
             onTap: () {
               lc.onDelete;
-              Get.offAll(const LoginPage(),
+              Get.offAll(() => const LoginPage(),
                   transition: Transition.rightToLeftWithFade,
-                  duration: Duration(milliseconds: 200));
+                  duration: const Duration(milliseconds: 200));
               lc.logout();
               lc.resetControllers();
             },
@@ -277,7 +275,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -291,7 +289,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                           editAssetController.firstName.value = newValue,
                     )
                   : Text('${ac.assets[0].firstName}' +
-                      '  ${ac.assets[0].lastName}'),
+                      ' ${ac.assets[0].lastName}'),
               isEditing: isEditing,
               onEditPressed: () {
                 setState(() {
@@ -687,17 +685,17 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                   child: Container(
                     height: 50,
                     width: 200,
-                    child: Center(
-                        child: const Text(
-                      "Update",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    )),
                     decoration: BoxDecoration(
                       border: Border.all(width: 1),
                       borderRadius: BorderRadius.circular(40),
                       color: Colors.white70,
                     ),
+                    child: const Center(
+                        child: Text(
+                      "Update",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    )),
                   ),
                 ),
               ),
@@ -715,31 +713,31 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
     VoidCallback? onEditPressed,
   }) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 12.0),
+      padding: const EdgeInsets.only(bottom: 12.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Icon(icon, size: 30),
-          SizedBox(width: 12.0),
+          const SizedBox(width: 12.0),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
                   label,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0,
                   ),
                 ),
-                SizedBox(height: 4.0),
+                const SizedBox(height: 4.0),
                 isEditing
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(child: valueWidget),
                           IconButton(
-                            icon: Icon(Icons.edit),
+                            icon: const Icon(Icons.edit),
                             onPressed: onEditPressed,
                           ),
                         ],

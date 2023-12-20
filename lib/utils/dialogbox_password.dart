@@ -9,6 +9,8 @@ class DialogBox extends StatelessWidget {
   final PasswordController pc = Get.put(PasswordController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  DialogBox({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,7 +47,7 @@ class DialogBox extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         ElevatedButton(
@@ -57,7 +59,7 @@ class DialogBox extends StatelessWidget {
               toast("Both passwords did not match!");
             }
           },
-          child: Text("Update password"),
+          child: const Text("Update password"),
         ),
       ],
     );

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_edit_controller.dart';
 import 'package:asm_gegadyne/models/asset_model.dart';
-import 'package:asm_gegadyne/screens/asset_details%20copy.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 

@@ -1,14 +1,8 @@
-import 'dart:ffi';
-
-import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/login_controllers.dart';
 import 'package:asm_gegadyne/screens/user_details_screen.dart';
 import 'package:asm_gegadyne/utils/toast_notify.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
 class LoginPage extends StatefulWidget {
@@ -52,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 60.0),
                   child: Center(
-                    child: Container(
+                    child: SizedBox(
                         width: 250,
                         height: 200,
                         /*decoration: BoxDecoration(
@@ -63,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Padding(
                   //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: TextFormField(
                     controller: emailController,
                     onChanged: (value) {
@@ -104,11 +98,11 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: 'Enter secure password'),
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Shimmer(
-                  duration: Duration(seconds: 2),
+                  duration: const Duration(seconds: 2),
                   // This is NOT the default value. Default value: Duration(seconds: 0)
-                  interval: Duration(seconds: 1),
+                  interval: const Duration(seconds: 1),
                   // This is the default value
                   color: Colors.white,
                   // This is the default value
@@ -116,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                   // This is the default value
                   enabled: true,
                   // This is the default value
-                  direction: ShimmerDirection.fromLTRB(),
+                  direction: const ShimmerDirection.fromLTRB(),
                   child: Container(
                     height: 50,
                     width: 250,
@@ -129,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                           // // for Mock Api
                           // await c.simulateLogin();
 
-                          await c.loginUser(context);
+                          await c.loginUser();
                           if (emailController.text == "" ||
                               passController.text == "") {
                             toast("Please fill in details properly");

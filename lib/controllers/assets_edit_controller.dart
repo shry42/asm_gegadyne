@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_controller.dart';
-import 'package:asm_gegadyne/screens/asset_details%20copy.dart';
-import 'package:asm_gegadyne/screens/qr_scanner%20copy.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;

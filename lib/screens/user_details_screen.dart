@@ -1,14 +1,25 @@
-import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/login_controllers.dart';
 import 'package:asm_gegadyne/screens/qr_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
-class UserDetailsScreen extends StatelessWidget {
+class UserDetailsScreen extends StatefulWidget {
+  UserDetailsScreen({super.key});
+
+  @override
+  State<UserDetailsScreen> createState() => _UserDetailsScreenState();
+}
+
+class _UserDetailsScreenState extends State<UserDetailsScreen> {
   final loginController userData = Get.put(loginController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    userData;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +44,7 @@ class UserDetailsScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         return await Get.defaultDialog(
-          backgroundColor: Color.fromARGB(255, 201, 239, 157),
+          backgroundColor: const Color.fromARGB(255, 201, 239, 157),
           title: "Exit?",
           middleText: "Are you sure? You'll be logged",
           textConfirm: 'Yes',
@@ -53,7 +64,7 @@ class UserDetailsScreen extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Colors.lightGreen,
@@ -68,7 +79,7 @@ class UserDetailsScreen extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -77,8 +88,8 @@ class UserDetailsScreen extends StatelessWidget {
                     width: 385,
                     // color: Colors.white,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(26, 255, 255, 255),
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      color: const Color.fromARGB(26, 255, 255, 255),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
                       border: Border.all(color: Colors.white60),
                     ),
                     child: Column(
@@ -86,28 +97,28 @@ class UserDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         //Person icon
-                        Icon(
+                        const Icon(
                           Icons.person,
                           size: 150,
                         ),
                         // Deatils
                         Text(
-                          "${userData.user!.role}",
-                          style: TextStyle(
+                          userData.user!.role,
+                          style: const TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           "${userData.user!.firstName} ${userData.user!.lastName}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           userData.user!.emailId,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -125,9 +136,9 @@ class UserDetailsScreen extends StatelessWidget {
                         //scanner Button
 
                         Shimmer(
-                          duration: Duration(seconds: 2),
+                          duration: const Duration(seconds: 2),
                           // This is NOT the default value. Default value: Duration(seconds: 0)
-                          interval: Duration(milliseconds: 500),
+                          interval: const Duration(milliseconds: 500),
                           // This is the default value
                           color: Colors.white,
                           // This is the default value
@@ -135,7 +146,7 @@ class UserDetailsScreen extends StatelessWidget {
                           // This is the default value
                           enabled: true,
                           // This is the default value
-                          direction: ShimmerDirection.fromLTRB(),
+                          direction: const ShimmerDirection.fromLTRB(),
                           child: Container(
                             height: 50,
                             width: 200,
@@ -145,9 +156,10 @@ class UserDetailsScreen extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () {
                                 //
-                                Get.offAll(QRScannerScreen(),
+                                Get.to(const QRScannerScreen(),
                                     transition: Transition.fade,
-                                    duration: Duration(milliseconds: 200));
+                                    duration:
+                                        const Duration(milliseconds: 200));
                               },
                               child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
