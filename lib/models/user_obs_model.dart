@@ -17,11 +17,11 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['id'].obs,
-      firstName: json['firstName'].obs,
-      lastName: json['lastName'].obs,
-      emailId: json['emailId'].obs,
-      role: json['role'].obs,
+      id: json['id'] as RxInt,
+      firstName: json['firstName'] as RxString,
+      lastName: json['lastName'] as RxString,
+      emailId: json['emailId'] as RxString,
+      role: json['role'] as RxString,
     );
   }
 

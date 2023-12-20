@@ -261,7 +261,12 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                   transition: Transition.rightToLeftWithFade,
                   duration: const Duration(milliseconds: 200));
               lc.logout();
-              lc.resetControllers();
+              lc.user!.role = "";
+              lc.user!.emailId = "";
+              lc.user!.firstName = "";
+              lc.user!.lastName = "";
+              lc.user!.id = 0;
+              // lc.resetControllers();
             },
             child: Container(
               child: Image.asset(

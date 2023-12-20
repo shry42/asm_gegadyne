@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Gegadyne Login.."),
+        title: const Text("Gegadyne Login"),
         shadowColor: const Color.fromARGB(255, 117, 198, 25),
         backgroundColor: const Color.fromARGB(255, 159, 237, 70),
       ),
