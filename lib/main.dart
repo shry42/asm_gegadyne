@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: const LoginPage(),
       //For app lock
-      home: const AppLockScreen(),
+      home: PinSetupOrLockScreen(),
     );
   }
 }

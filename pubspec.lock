@@ -102,14 +102,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_app_lock:
-    dependency: "direct main"
-    description:
-      name: flutter_app_lock
-      sha256: "98890a2a2bc507b2f85165515189750e134921f8f4022ec10bd223033633a3ba"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0"
   flutter_lints:
     dependency: "direct dev"
     description:
