@@ -1,3 +1,4 @@
+import 'package:asm_gegadyne/screens/app_lock.dart';
 import 'package:asm_gegadyne/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,9 @@ class MyApp extends StatelessWidget {
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      // home: const LoginPage(),
+      //For app lock
+      home: const AppLockScreen(),
     );
   }
 }
