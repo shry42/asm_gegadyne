@@ -45,6 +45,7 @@ dependencies:
   fluttertoast: ^8.2.4
   http: ^1.1.2
   connection_notifier: ^2.0.1
+  pin_lock_screen: ^1.0.0
 
 dev_dependencies:
   flutter_test:
