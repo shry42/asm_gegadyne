@@ -399,7 +399,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
 
             _buildDetailItem(
               Icons.confirmation_number,
-              'serialNo',
+              'SerialNo',
               isSerialNoEditing
                   ? _buildEditableTextField(
                       ac.assets[0].serialNo.toString(),
@@ -421,8 +421,8 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
             ),
 
             _buildDetailItem(
-              Icons.confirmation_number,
-              'assetTag',
+              Icons.data_array,
+              'AssetTag',
               isAssetTageEditing
                   ? _buildEditableTextField(
                       ac.assets[0].assetTag.toString(),
@@ -444,8 +444,8 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
             ),
 
             _buildDetailItem(
-              Icons.confirmation_number,
-              'imeiNo',
+              Icons.numbers,
+              'ImeiNo',
               isImeiEditing
                   ? _buildEditableTextField(
                       ac.assets[0].imeiNo.toString(),
@@ -489,7 +489,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
             ),
 
             _buildDetailItem(
-              Icons.memory,
+              Icons.storage,
               'SSD',
               isSsdEditing
                   ? _buildEditableTextField(
@@ -556,8 +556,8 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
             ),
 
             _buildDetailItem(
-              Icons.network_wifi,
-              'lanMacAddress',
+              Icons.lan,
+              'LanMacAddress',
               isLanMacAddressEditing
                   ? _buildEditableTextField(
                       ac.assets[0].lanMacAddress.toString(),
@@ -580,7 +580,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
 
             _buildDetailItem(
               Icons.network_wifi,
-              'wifiMacAddress',
+              'WifiMacAddress',
               isWifiMacAddressEditing
                   ? _buildEditableTextField(
                       ac.assets[0].wifiMacAddress.toString(),
@@ -603,7 +603,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
 
             _buildDetailItem(
               Icons.check_circle,
-              'approvalStatus',
+              'ApprovalStatus',
               isApprovalStatusEditing
                   ? _buildEditableTextField(
                       ac.assets[0].approvalStatus.toString(),
