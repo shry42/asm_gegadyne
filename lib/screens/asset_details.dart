@@ -423,24 +423,15 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       onChanged: (String? newValue) {
                         setState(() {
                           editAssetController.make.value = newValue!;
+                          editAssetController.id.value = newValue;
                         });
                       },
-                      items: <String>[
-                        // mc.makeList
-                        //     .map((e) => e.make.toString())
-                        //     .toList()
-                        //     .toString(),
-                        mc.makeList[0].make.toString(),
-                        mc.makeList[1].make.toString(),
-                        mc.makeList[2].make.toString(),
-                        mc.makeList[3].make.toString(),
-                      ].map<DropdownMenuItem<String>>((String value) {
+                      items: mc.makeList.map((item) {
                         return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
+                          value: item.make.toString(),
+                          child: Text(item.make.toString()),
                         );
-                      }).toList(),
-                    )
+                      }).toList())
                   : Obx(
                       () => Text(
                         '${editAssetController.make}',
