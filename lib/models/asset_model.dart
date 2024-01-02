@@ -2,6 +2,9 @@ class Asset {
   final int id;
   final int empId;
   final String make;
+  // final String makeId;
+  final String type;
+
   final String serialNo;
   final String assetTag;
   final String imeiNo;
@@ -22,6 +25,7 @@ class Asset {
     required this.id,
     required this.empId,
     required this.make,
+    required this.type,
     required this.serialNo,
     required this.assetTag,
     required this.imeiNo,
@@ -43,6 +47,7 @@ class Asset {
     return Asset(
       id: json['id'],
       empId: json['emp_Id'],
+      type: json['type'],
       make: json['make'],
       serialNo: json['serialNo'],
       assetTag: json['assetTag'],
@@ -67,6 +72,7 @@ class Asset {
       'id': id,
       'emp_Id': empId,
       'make': make,
+      'type': type,
       'serialNo': serialNo,
       'assetTag': assetTag,
       'imeiNo': imeiNo,

@@ -1,10 +1,11 @@
+import 'package:asm_gegadyne/Authentication_services/autentication_screen.dart';
 import 'package:asm_gegadyne/screens/app_lock.dart';
 import 'package:asm_gegadyne/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -26,7 +27,9 @@ class MyApp extends StatelessWidget {
       ),
       // home: const LoginPage(),
       //For app lock
-      home: PinSetupOrLockScreen(),
+      // home: PinSetupOrLockScreen(),
+      // For system app lock
+      home: AuthScreen(),
     );
   }
 }

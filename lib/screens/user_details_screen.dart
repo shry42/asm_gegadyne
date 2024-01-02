@@ -1,3 +1,4 @@
+import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/login_controllers.dart';
 import 'package:asm_gegadyne/screens/qr_scanner.dart';
 import 'package:flutter/material.dart';
@@ -104,6 +105,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                         // Deatils
                         Text(
                           userData.user!.role,
+                          // '${AppController.role}',
                           style: const TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,

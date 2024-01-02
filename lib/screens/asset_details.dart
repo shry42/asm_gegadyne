@@ -1,6 +1,8 @@
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_controller.dart';
 import 'package:asm_gegadyne/controllers/login_controllers.dart';
+import 'package:asm_gegadyne/controllers/make_controller.dart';
+import 'package:asm_gegadyne/controllers/type_controller.dart';
 import 'package:asm_gegadyne/screens/login_page.dart';
 import 'package:asm_gegadyne/utils/dialogbox_password.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +23,13 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
   final AssetsEditController editAssetController =
       Get.put(AssetsEditController());
   final loginController lc = Get.put(loginController());
+  final makeController mc = Get.put(makeController());
+  final typeController tc = Get.put(typeController());
+
   String? id;
   String? emp_Id;
   String? make;
+  String? type;
   String? serialNo;
   String? assetTag;
   String? imeiNo;
@@ -49,6 +55,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
     id = ac.assets[0].id.toString();
     emp_Id = ac.assets[0].empId.toString();
     make = ac.assets[0].make.toString();
+    type = ac.assets[0].type.toString();
     serialNo = ac.assets[0].serialNo.toString();
     assetTag = ac.assets[0].assetTag;
     imeiNo = ac.assets[0].imeiNo;
@@ -71,6 +78,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
     AppController.setaid(id);
     AppController.setaempId(emp_Id);
     AppController.setmake(make);
+    AppController.settype(type);
     AppController.setserialNo(serialNo);
     AppController.setassetTag(assetTag);
     AppController.setimeiNo(imeiNo);
@@ -85,6 +93,9 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
     AppController.setram(ram);
     AppController.setcreatedBy(createdBy);
     AppController.setcreatedAt(createdAt);
+
+    mc.fetchMakeList();
+    tc.fetchTypeList();
 
     // -----------------------------------------------\\
 
@@ -102,6 +113,8 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
   bool isFirstNameEditing = false;
 
   bool isMakeEditing = false;
+
+  bool isTypeEditing = false;
 
   bool isSerialNoEditing = false;
 
@@ -217,6 +230,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                     // Reset the editing state for individual fields
                     isFirstNameEditing = false;
                     isMakeEditing = false;
+                    isTypeEditing = false;
                     isSerialNoEditing = false;
                     isAssetTageEditing = false;
                     isImeiEditing = false;
@@ -260,7 +274,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
               Get.offAll(() => const LoginPage(),
                   transition: Transition.rightToLeftWithFade,
                   duration: const Duration(milliseconds: 200));
-              lc.logout();
+              // lc.logout();
               lc.user!.role = "";
               lc.user!.emailId = "";
               lc.user!.firstName = "";
@@ -375,13 +389,57 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
             //     });
             //   },
             // ),
+
+            // _buildDetailItem(
+            //   Icons.devices,
+            //   'Make',
+            //   isMakeEditing
+            //       ? _buildEditableTextField(
+            //           ac.assets[0].make.toString(),
+            //           (newValue) => editAssetController.make.value = newValue,
+            //         )
+            //       : Obx(
+            //           () => Text(
+            //             '${editAssetController.make}',
+            //           ),
+            //         ),
+            //   isEditing: isEditing,
+            //   onEditPressed: () {
+            //     setState(() {
+            //       // Toggle the edit mode for First Name field
+            //       isMakeEditing = !isMakeEditing;
+            //     });
+            //   }
+            // ),
+
+            //Below is added change for ***** asset make ******
+
             _buildDetailItem(
               Icons.devices,
-              'Make',
+              'Asset Make',
               isMakeEditing
-                  ? _buildEditableTextField(
-                      ac.assets[0].make.toString(),
-                      (newValue) => editAssetController.make.value = newValue,
+                  ? DropdownButton<String>(
+                      value: editAssetController.make.value,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          editAssetController.make.value = newValue!;
+                        });
+                      },
+                      items: <String>[
+                        // mc.makeList
+                        //     .map((e) => e.make.toString())
+                        //     .toList()
+                        //     .toString(),
+                        mc.makeList[0].make.toString(),
+                        mc.makeList[1].make.toString(),
+                        mc.makeList[2].make.toString(),
+                        mc.makeList[3].make.toString(),
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                     )
                   : Obx(
                       () => Text(
@@ -391,15 +449,61 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
               isEditing: isEditing,
               onEditPressed: () {
                 setState(() {
-                  // Toggle the edit mode for First Name field
                   isMakeEditing = !isMakeEditing;
                 });
               },
             ),
 
+            //***ASSET TYPE***/
+
+            // _buildDetailItem(
+            //   Icons.devices,
+            //   'Asset Type',
+            //   isTypeEditing
+            //       ? DropdownButton<String>(
+            //           value: editAssetController.type.value,
+            //           onChanged: (String? newValue) {
+            //             setState(() {
+            //               editAssetController.type.value = newValue!;
+            //             });
+            //           },
+            //           items: <String>[
+            //             // mc.makeList
+            //             //     .map((e) => e.make.toString())
+            //             //     .toList()
+            //             //     .toString(),
+            //             tc.typeList[0].type.toString(),
+            //             tc.typeList[1].type.toString(),
+            //             tc.typeList[2].type.toString(),
+            //             // tc.typeList[3].type.toString(),
+            //             // tc.typeList[4].type.toString(),
+            //             // tc.typeList[5].type.toString(),
+            //             // tc.typeList[6].type.toString(),
+            //           ].map<DropdownMenuItem<String>>((String value) {
+            //             return DropdownMenuItem<String>(
+            //               value: value,
+            //               child: Text(value),
+            //             );
+            //           }).toList(),
+            //         )
+            //       : Obx(
+            //           () => Text(
+            //             '${editAssetController.type}',
+            //           ),
+            //         ),
+            //   isEditing: isEditing,
+            //   onEditPressed: () {
+            //     setState(() {
+            //       isTypeEditing = !isTypeEditing;
+            //     });
+            //   },
+            // ),
+
+// *****************************************//
+
             _buildDetailItem(
               Icons.confirmation_number,
-              'SerialNo',
+              'Serial No',
               isSerialNoEditing
                   ? _buildEditableTextField(
                       ac.assets[0].serialNo.toString(),
@@ -422,7 +526,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
 
             _buildDetailItem(
               Icons.data_array,
-              'AssetTag',
+              'Asset Tag',
               isAssetTageEditing
                   ? _buildEditableTextField(
                       ac.assets[0].assetTag.toString(),
@@ -445,7 +549,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
 
             _buildDetailItem(
               Icons.numbers,
-              'ImeiNo',
+              'IMEI Number',
               isImeiEditing
                   ? _buildEditableTextField(
                       ac.assets[0].imeiNo.toString(),
@@ -467,7 +571,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
 
             _buildDetailItem(
               Icons.mobile_screen_share,
-              'OSversion',
+              'OS Version',
               isOsVersionEditing
                   ? _buildEditableTextField(
                       ac.assets[0].osVersion.toString(),
@@ -557,7 +661,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
 
             _buildDetailItem(
               Icons.lan,
-              'LanMacAddress',
+              'Lan Mac Address',
               isLanMacAddressEditing
                   ? _buildEditableTextField(
                       ac.assets[0].lanMacAddress.toString(),
@@ -580,7 +684,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
 
             _buildDetailItem(
               Icons.network_wifi,
-              'WifiMacAddress',
+              'Wifi Mac Address',
               isWifiMacAddressEditing
                   ? _buildEditableTextField(
                       ac.assets[0].wifiMacAddress.toString(),
@@ -601,15 +705,49 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
               },
             ),
 
+            // _buildDetailItem(
+            //   Icons.check_circle,
+            //   'ApprovalStatus',
+            //   isApprovalStatusEditing
+            //       ? _buildEditableTextField(
+            //           ac.assets[0].approvalStatus.toString(),
+            //           (newValue) =>
+            //               editAssetController.approvalStatus.value = newValue,
+            //         )
+            //       : Obx(
+            //           () => Text(
+            //             '${editAssetController.approvalStatus}',
+            //           ),
+            //         ),
+            //   isEditing: isEditing,
+            //   onEditPressed: () {
+            //     setState(() {
+            //       // Toggle the edit mode for First Name field
+            //       isApprovalStatusEditing = !isApprovalStatusEditing;
+            //     });
+            //   },
+            // ),
+
+            //**** Dropdown option added */
+
             _buildDetailItem(
               Icons.check_circle,
-              'ApprovalStatus',
+              'Asset Checkout Status',
               isApprovalStatusEditing
-                  ? _buildEditableTextField(
-                      // ac.assets[0].approvalStatus.toString(),
-                      _buildApprovalStatusDropdown.toString(),
-                      (newValue) =>
-                          editAssetController.approvalStatus.value = newValue,
+                  ? DropdownButton<String>(
+                      value: editAssetController.approvalStatus.value,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          editAssetController.approvalStatus.value = newValue!;
+                        });
+                      },
+                      items: <String>['Yes', 'No']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                     )
                   : Obx(
                       () => Text(
@@ -619,7 +757,6 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
               isEditing: isEditing,
               onEditPressed: () {
                 setState(() {
-                  // Toggle the edit mode for First Name field
                   isApprovalStatusEditing = !isApprovalStatusEditing;
                 });
               },
@@ -686,6 +823,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       isProcessorEditing = false;
                       isLanMacAddressEditing = false;
                       isWifiMacAddressEditing = false;
+                      isApprovalStatusEditing = false;
                     });
                   },
                   child: Container(

@@ -9,6 +9,7 @@ class AppController {
   static String? _aid;
   static String? _aempId;
   static String? _make;
+  static String? _type;
   static String? _serialNo;
   static String? _assetTag;
   static String? _imeiNo;
@@ -67,6 +68,11 @@ class AppController {
   static get make => _make;
   static setmake(String? value) {
     _make = value;
+  }
+
+  static get type => _type;
+  static settype(String? value) {
+    _type = type;
   }
 
   static get serialNo => _serialNo;

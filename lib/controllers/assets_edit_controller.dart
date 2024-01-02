@@ -17,6 +17,7 @@ class AssetsEditController extends GetxController {
   RxString empId = "".obs;
   RxString isActive = "".obs;
   RxString make = "".obs;
+  RxString type = "".obs;
   RxString serialNo = "".obs;
   RxString assetTag = "".obs;
   RxString imeiNo = "".obs;
@@ -41,6 +42,7 @@ class AssetsEditController extends GetxController {
         "id": id.value.toString(),
         "emp_Id": empId.value.toString(),
         "make": make.value.toString(),
+        "type": make.value.toString(),
         "serialNo": serialNo.value.toString(),
         "assetTag": assetTag.value.toString(),
         "imeiNo": imeiNo.value.toString(),
@@ -114,35 +116,35 @@ class AssetsEditController extends GetxController {
 
 //Mocked API
 
-// Future<void> editAssetPost() async {
-//     // Simulated response data (mocked response similar to the provided data)
-//     final simulatedResponse = {
-//       "status": true,
-//       "message": "Assets update successfully"
-//     };
+  // Future<void> editAssetPost() async {
+  //   // Simulated response data (mocked response similar to the provided data)
+  //   final simulatedResponse = {
+  //     "status": true,
+  //     "message": "Assets update successfully"
+  //   };
 
-//     // Process the simulated response as if it came from an API request
-//     if (simulatedResponse['status'] == true) {
-//       updateStatus.value = (simulatedResponse['message']??"").toString();
-//       Get.defaultDialog(
-//         title: "Success",
-//         middleText: "Assets updated successfully",
-//         textConfirm: "OK",
-//         confirmTextColor: Colors.white,
-//         onConfirm: () {
-//           Get.back(); // Close the dialog
-//         },
-//       );
-//     } else {
-//       Get.defaultDialog(
-//         title: "Error",
-//         middleText: "Could not update",
-//         textConfirm: "OK",
-//         confirmTextColor: Colors.white,
-//         onConfirm: () {
-//           Get.back(); // Close the dialog
-//         },
-//       );
-//     }
-//   }
-
+  //   // Process the simulated response as if it came from an API request
+  //   if (simulatedResponse['status'] == true) {
+  //     updateStatus.value = (simulatedResponse['message'] ?? "").toString();
+  //     Get.defaultDialog(
+  //       title: "Success",
+  //       middleText: "Assets updated successfully",
+  //       textConfirm: "OK",
+  //       confirmTextColor: Colors.white,
+  //       onConfirm: () {
+  //         Get.back(); // Close the dialog
+  //       },
+  //     );
+  //   } else {
+  //     Get.defaultDialog(
+  //       title: "Error",
+  //       middleText: "Could not update",
+  //       textConfirm: "OK",
+  //       confirmTextColor: Colors.white,
+  //       onConfirm: () {
+  //         Get.back(); // Close the dialog
+  //       },
+  //     );
+  //   }
+  // }
+// }

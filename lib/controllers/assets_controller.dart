@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_edit_controller.dart';
+import 'package:asm_gegadyne/models/asset_make_model.dart';
 import 'package:asm_gegadyne/models/asset_model.dart';
 import 'package:asm_gegadyne/utils/toast_notify.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,10 +11,10 @@ import 'package:http/http.dart' as http;
 
 class AssestsController extends GetxController {
   List<Asset> assets = [];
-  String active = "";
-  Asset? asset;
-  RxString id = ''.obs;
-  RxString empId = ''.obs;
+  // String active = "";
+  // Asset? asset;
+  // RxString id = ''.obs;
+  // RxString empId = ''.obs;
 
   @override
   void initState() {
@@ -31,7 +32,7 @@ class AssestsController extends GetxController {
       body: json.encode({
         "qrvalue": {
           "id": AppController.id,
-          "emp_id": AppController.empId,
+          "emp_Id": AppController.empId,
           // "id": '1',
           // "emp_id": '2',
         }
@@ -48,6 +49,8 @@ class AssestsController extends GetxController {
       editAssetController.lastName.value = assets[0].lastName;
 
       editAssetController.make.value = assets[0].make;
+
+      editAssetController.type.value = assets[0].type;
 
       editAssetController.serialNo.value = assets[0].serialNo;
 
@@ -86,7 +89,97 @@ class AssestsController extends GetxController {
     return <Asset>[];
   }
 
+  //************************ */
+
+  List<AssetMake> makeList = [];
+
+  Future<List<AssetMake>> fetchMakeList() async {
+    final response = await http.post(
+      Uri.parse('http://192.168.100.45:4000/api/assets/fetchMake'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${AppController.accessToken}',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+
+      final List<dynamic> dataList = jsonResponse['data'];
+      makeList = dataList.map((item) => AssetMake.fromJson(item)).toList();
+
+      return makeList;
+    } else {
+      throw Exception('Failed to fetch data');
+    }
+  }
+
   //MOCKED RESPONSE BELOW
+
+  // Future<List<Asset>> fetchAssetById() async {
+  //   http.Response response = await http.post(
+  //     Uri.parse('http://192.168.100.45:4000/api/assets/fetchAssetById'),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Bearer ${AppController.accessToken}',
+  //     },
+  //     body: json.encode({
+  //       "qrvalue": {
+  //         "id": AppController.id,
+  //         "emp_id": AppController.empId,
+  //         // "id": '1',
+  //         // "emp_id": '2',
+  //       }
+  //     }),
+  //   );
+  //   if (response.statusCode == 200) {
+  //     Map<String, dynamic> result = json.decode(response.body);
+  //     List<dynamic> data = result['data'];
+  //     assets = data.map((item) => Asset.fromJson(item)).toList();
+
+  //     final AssetsEditController editAssetController =
+  //         Get.put(AssetsEditController());
+  //     editAssetController.firstName.value = assets[0].firstName;
+  //     editAssetController.lastName.value = assets[0].lastName;
+
+  //     editAssetController.make.value = assets[0].make;
+
+  //     editAssetController.serialNo.value = assets[0].serialNo;
+
+  //     editAssetController.id.value = assets[0].id.toString();
+
+  //     editAssetController.empId.value = assets[0].empId.toString();
+
+  //     editAssetController.assetTag.value = assets[0].assetTag;
+
+  //     editAssetController.imeiNo.value = assets[0].imeiNo;
+
+  //     editAssetController.OSversion.value = assets[0].osVersion;
+
+  //     editAssetController.SSD.value = assets[0].ssd;
+
+  //     editAssetController.ram.value = assets[0].ram;
+  //     editAssetController.processor.value = assets[0].processor;
+
+  //     editAssetController.lanMacAddress.value = assets[0].lanMacAddress;
+
+  //     editAssetController.wifiMacAddress.value = assets[0].wifiMacAddress;
+
+  //     editAssetController.approvalStatus.value = assets[0].approvalStatus;
+
+  //     editAssetController.isActive.value = assets[0].isActive.toString();
+
+  //     editAssetController.createdAt.value = assets[0].createdAt;
+
+  //     editAssetController.createdBy.value = assets[0].createdBy.toString();
+
+  //     return assets;
+  //   } else {
+  //     return [];
+  //   }
+  // }
+
+  // MOCKED RESPONSE BELOW
 
   // Future<List<Asset>> fetchAssetById() async {
   //   // Simulated response data (mocked response similar to the provided data)

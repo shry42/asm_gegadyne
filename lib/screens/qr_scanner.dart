@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_controller.dart';
 import 'package:asm_gegadyne/controllers/assets_edit_controller.dart';
+import 'package:asm_gegadyne/controllers/make_controller.dart';
+import 'package:asm_gegadyne/controllers/type_controller.dart';
 import 'package:asm_gegadyne/models/asset_model.dart';
 import 'package:asm_gegadyne/screens/asset_details.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,9 @@ class QRScannerScreen extends StatefulWidget {
 
 class _QRScannerScreenState extends State<QRScannerScreen> {
   final AssestsController ac = Get.put(AssestsController());
+  final makeController mc = Get.put(makeController());
+  final typeController tc = Get.put(typeController());
+
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
   String qrText = '';
@@ -175,6 +180,9 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                         onPressed: () async {
                           //
                           List<Asset> assets = await ac.fetchAssetById();
+                          // await ac.fetchMakeList();
+                          mc.fetchMakeList();
+                          // tc.fetchTypeList();
 
                           //
                           editAssetController.firstName.value =
