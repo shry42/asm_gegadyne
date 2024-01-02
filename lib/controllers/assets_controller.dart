@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/controllers/assets_edit_controller.dart';
 import 'package:asm_gegadyne/models/asset_model.dart';
+import 'package:asm_gegadyne/utils/toast_notify.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -75,11 +77,13 @@ class AssestsController extends GetxController {
       editAssetController.createdAt.value = assets[0].createdAt;
 
       editAssetController.createdBy.value = assets[0].createdBy.toString();
+      if (response.statusCode == 400) {
+        toast("Invalid QR Code");
+      }
 
       return assets;
-    } else {
-      return [];
     }
+    return <Asset>[];
   }
 
   //MOCKED RESPONSE BELOW

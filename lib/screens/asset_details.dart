@@ -606,7 +606,8 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
               'ApprovalStatus',
               isApprovalStatusEditing
                   ? _buildEditableTextField(
-                      ac.assets[0].approvalStatus.toString(),
+                      // ac.assets[0].approvalStatus.toString(),
+                      _buildApprovalStatusDropdown.toString(),
                       (newValue) =>
                           editAssetController.approvalStatus.value = newValue,
                     )
@@ -767,6 +768,26 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
           : null,
 
       // Add onChanged or controller to handle edited values
+    );
+  }
+
+  Widget _buildApprovalStatusDropdown() {
+    return DropdownButtonFormField<String>(
+      value: 'Yes', // Set initial value here if needed
+      items: [
+        DropdownMenuItem<String>(
+          value: 'Yes',
+          child: Text('Yes'),
+        ),
+        DropdownMenuItem<String>(
+          value: 'No',
+          child: Text('No'),
+        ),
+      ],
+      onChanged: (newValue) {
+        // Handle onChanged event for Approval Status dropdown
+        // You may want to update state or variables accordingly
+      },
     );
   }
 }

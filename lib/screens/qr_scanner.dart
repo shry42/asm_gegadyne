@@ -67,7 +67,8 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Permission Denied'),
-        content: const Text('Please grant camera permission to use QR scanner.'),
+        content:
+            const Text('Please grant camera permission to use QR scanner.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -178,23 +179,38 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                           //
                           editAssetController.firstName.value =
                               assets[0].firstName;
-                          editAssetController.lastName.value = ac.assets[0].lastName;
-                          editAssetController.ram.value = ac.assets[0].ram.toString();
-                          editAssetController.id.value = ac.assets[0].id.toString();
-                          editAssetController.empId.value = ac.assets[0].empId.toString();
-                          editAssetController.make.value = ac.assets[0].make.toString();
-                          editAssetController.serialNo.value = ac.assets[0].serialNo.toString();
-                          editAssetController.assetTag.value = ac.assets[0].assetTag;
-                          editAssetController.imeiNo.value = ac.assets[0].imeiNo;
-                          editAssetController.OSversion.value = ac.assets[0].osVersion;
+                          editAssetController.lastName.value =
+                              ac.assets[0].lastName;
+                          editAssetController.ram.value =
+                              ac.assets[0].ram.toString();
+                          editAssetController.id.value =
+                              ac.assets[0].id.toString();
+                          editAssetController.empId.value =
+                              ac.assets[0].empId.toString();
+                          editAssetController.make.value =
+                              ac.assets[0].make.toString();
+                          editAssetController.serialNo.value =
+                              ac.assets[0].serialNo.toString();
+                          editAssetController.assetTag.value =
+                              ac.assets[0].assetTag;
+                          editAssetController.imeiNo.value =
+                              ac.assets[0].imeiNo;
+                          editAssetController.OSversion.value =
+                              ac.assets[0].osVersion;
                           editAssetController.SSD.value = ac.assets[0].ssd;
-                          editAssetController.processor.value = ac.assets[0].processor;
-                          editAssetController.wifiMacAddress.value = ac.assets[0].wifiMacAddress;
-                          editAssetController.lanMacAddress.value = ac.assets[0].lanMacAddress;
-                          editAssetController.approvalStatus.value = ac.assets[0].approvalStatus;
+                          editAssetController.processor.value =
+                              ac.assets[0].processor;
+                          editAssetController.wifiMacAddress.value =
+                              ac.assets[0].wifiMacAddress;
+                          editAssetController.lanMacAddress.value =
+                              ac.assets[0].lanMacAddress;
+                          editAssetController.approvalStatus.value =
+                              ac.assets[0].approvalStatus;
                           // editAssetController.c = ac.assets[0].createdBy.toString();
-                          editAssetController.isActive.value = ac.assets[0].isActive.toString();
-                          editAssetController.ram.value = ac.assets[0].ram.toString();
+                          editAssetController.isActive.value =
+                              ac.assets[0].isActive.toString();
+                          editAssetController.ram.value =
+                              ac.assets[0].ram.toString();
                           //
 
                           await Get.to(const AssetDetailsScreen(),
@@ -235,7 +251,8 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
         empId = decodedData['emp_Id'];
         AppController.setempId(empId);
         await ac.fetchAssetById();
-        await Get.to(const AssetDetailsScreen(), transition: Transition.rightToLeft);
+        await Get.to(const AssetDetailsScreen(),
+            transition: Transition.rightToLeft);
 
         // Process the scanned QR code data here
       });
