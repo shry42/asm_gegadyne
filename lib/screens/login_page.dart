@@ -121,9 +121,9 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           // // for Mock Api
-                          // await c.simulateLogin();
+                          await c.simulateLogin();
 
-                          await c.loginUser();
+                          // await c.loginUser();
                           if (emailController.text == "" ||
                               passController.text == "") {
                             toast("Please fill in details properly");

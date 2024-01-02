@@ -260,7 +260,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
               Get.offAll(() => const LoginPage(),
                   transition: Transition.rightToLeftWithFade,
                   duration: const Duration(milliseconds: 200));
-              lc.logout();
+              // lc.logout();
               lc.user!.role = "";
               lc.user!.emailId = "";
               lc.user!.firstName = "";
@@ -601,14 +601,49 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
               },
             ),
 
+            // _buildDetailItem(
+            //   Icons.check_circle,
+            //   'ApprovalStatus',
+            //   isApprovalStatusEditing
+            //       ? _buildEditableTextField(
+            //           ac.assets[0].approvalStatus.toString(),
+            //           (newValue) =>
+            //               editAssetController.approvalStatus.value = newValue,
+            //         )
+            //       : Obx(
+            //           () => Text(
+            //             '${editAssetController.approvalStatus}',
+            //           ),
+            //         ),
+            //   isEditing: isEditing,
+            //   onEditPressed: () {
+            //     setState(() {
+            //       // Toggle the edit mode for First Name field
+            //       isApprovalStatusEditing = !isApprovalStatusEditing;
+            //     });
+            //   },
+            // ),
+
+            //**** Dropdown option added */
+
             _buildDetailItem(
               Icons.check_circle,
               'ApprovalStatus',
               isApprovalStatusEditing
-                  ? _buildEditableTextField(
-                      ac.assets[0].approvalStatus.toString(),
-                      (newValue) =>
-                          editAssetController.approvalStatus.value = newValue,
+                  ? DropdownButton<String>(
+                      value: editAssetController.approvalStatus.value,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          editAssetController.approvalStatus.value = newValue!;
+                        });
+                      },
+                      items: <String>['Yes', 'No']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                     )
                   : Obx(
                       () => Text(
@@ -618,7 +653,6 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
               isEditing: isEditing,
               onEditPressed: () {
                 setState(() {
-                  // Toggle the edit mode for First Name field
                   isApprovalStatusEditing = !isApprovalStatusEditing;
                 });
               },
@@ -685,6 +719,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       isProcessorEditing = false;
                       isLanMacAddressEditing = false;
                       isWifiMacAddressEditing = false;
+                      isApprovalStatusEditing = false;
                     });
                   },
                   child: Container(
