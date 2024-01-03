@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:asm_gegadyne/controllers/app_controllers.dart';
 import 'package:asm_gegadyne/models/user_model.dart';
@@ -41,7 +40,6 @@ class loginController extends GetxController {
       AppController.setaccessToken(token);
 
       role = user!.role;
-
       AppController.setRole(role);
       // Get.offAll(UserDetailsScreen());
     } else {
@@ -65,7 +63,7 @@ class loginController extends GetxController {
 }
 
 
-//BELOW IS THE MOCK API
+// //BELOW IS THE MOCK API
 // import 'dart:convert';
 // import 'package:asm_gegadyne/controllers/app_controllers.dart';
 // import 'package:asm_gegadyne/models/user_model.dart';
