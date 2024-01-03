@@ -30,6 +30,8 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
   String? emp_Id;
   String? make;
   String? type;
+  String? model;
+  String? assetHandOverDate;
   String? serialNo;
   String? assetTag;
   String? imeiNo;
@@ -45,6 +47,7 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
   String? firstName;
   String? lastName;
   String? ram;
+
   @override
   void initState() {
     // TODO: implement setState
@@ -56,6 +59,8 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
     emp_Id = ac.assets[0].empId.toString();
     make = ac.assets[0].make.toString();
     type = ac.assets[0].type.toString();
+    model = ac.assets[0].model.toString();
+    assetHandOverDate = ac.assets[0].assetHandOverDate.toString();
     serialNo = ac.assets[0].serialNo.toString();
     assetTag = ac.assets[0].assetTag;
     imeiNo = ac.assets[0].imeiNo;
@@ -79,6 +84,8 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
     AppController.setaempId(emp_Id);
     AppController.setmake(make);
     AppController.settype(type);
+    AppController.setmodel(model);
+    AppController.setassetHandOverDate(assetHandOverDate);
     AppController.setserialNo(serialNo);
     AppController.setassetTag(assetTag);
     AppController.setimeiNo(imeiNo);
@@ -115,6 +122,10 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
   bool isMakeEditing = false;
 
   bool isTypeEditing = false;
+
+  bool isModelEditing = false;
+
+  bool isAssetHandOverDateEditing = false;
 
   bool isSerialNoEditing = false;
 
@@ -423,7 +434,19 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       onChanged: (String? newValue) {
                         setState(() {
                           editAssetController.make.value = newValue!;
-                          editAssetController.id.value = newValue;
+                          // Find the selected make from the makeList in the makeController
+                          var selectedMake = mc.makeList.firstWhere(
+                            (element) => element.make == newValue,
+                          );
+                          if (selectedMake != null) {
+                            // Update the ID in the editAssetController
+                            editAssetController.id.value =
+                                selectedMake.id.toString();
+                          }
+                          // if (selectedMake == null) {
+                          //   editAssetController.makeId.value =
+                          //       editAssetController.make.value;
+                          // }
                         });
                       },
                       items: mc.makeList.map((item) {
@@ -431,10 +454,11 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                           value: item.make.toString(),
                           child: Text(item.make.toString()),
                         );
-                      }).toList())
+                      }).toList(),
+                    )
                   : Obx(
                       () => Text(
-                        '${editAssetController.make}',
+                        '${editAssetController.make.value}',
                       ),
                     ),
               isEditing: isEditing,
@@ -447,49 +471,45 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
 
             //***ASSET TYPE***/
 
-            // _buildDetailItem(
-            //   Icons.devices,
-            //   'Asset Type',
-            //   isTypeEditing
-            //       ? DropdownButton<String>(
-            //           value: editAssetController.type.value,
-            //           onChanged: (String? newValue) {
-            //             setState(() {
-            //               editAssetController.type.value = newValue!;
-            //             });
-            //           },
-            //           items: <String>[
-            //             // mc.makeList
-            //             //     .map((e) => e.make.toString())
-            //             //     .toList()
-            //             //     .toString(),
-            //             tc.typeList[0].type.toString(),
-            //             tc.typeList[1].type.toString(),
-            //             tc.typeList[2].type.toString(),
-            //             // tc.typeList[3].type.toString(),
-            //             // tc.typeList[4].type.toString(),
-            //             // tc.typeList[5].type.toString(),
-            //             // tc.typeList[6].type.toString(),
-            //           ].map<DropdownMenuItem<String>>((String value) {
-            //             return DropdownMenuItem<String>(
-            //               value: value,
-            //               child: Text(value),
-            //             );
-            //           }).toList(),
-            //         )
-            //       : Obx(
-            //           () => Text(
-            //             '${editAssetController.type}',
-            //           ),
-            //         ),
-            //   isEditing: isEditing,
-            //   onEditPressed: () {
-            //     setState(() {
-            //       isTypeEditing = !isTypeEditing;
-            //     });
-            //   },
-            // ),
-
+            _buildDetailItem(
+              Icons.devices,
+              'Asset Type',
+              isTypeEditing
+                  ? DropdownButton<String>(
+                      value: editAssetController.type.value,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          editAssetController.type.value = newValue!;
+                          // Find the selected type from the typeList in the typeController
+                          var selectedType = tc.typeList.firstWhere(
+                            (element) => element.type == newValue,
+                          );
+                          if (selectedType != null) {
+                            // Update the ID in the editAssetController
+                            editAssetController.typeId.value =
+                                selectedType.id.toString();
+                          }
+                        });
+                      },
+                      items: tc.typeList.map((item) {
+                        return DropdownMenuItem<String>(
+                          value: item.type.toString(),
+                          child: Text(item.type.toString()),
+                        );
+                      }).toList(),
+                    )
+                  : Obx(
+                      () => Text(
+                        '${editAssetController.type.value}',
+                      ),
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  isTypeEditing = !isTypeEditing;
+                });
+              },
+            ),
 // *****************************************//
 
             _buildDetailItem(
@@ -534,6 +554,47 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                 setState(() {
                   // Toggle the edit mode for First Name field
                   isAssetTageEditing = !isAssetTageEditing;
+                });
+              },
+            ),
+
+            _buildDetailItem(
+              Icons.person,
+              'Model',
+              isModelEditing
+                  ? _buildEditableTextField(
+                      ac.assets[0].model,
+                      (newValue) => editAssetController.model.value = newValue,
+                    )
+                  : Text(
+                      '${editAssetController.model}',
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  // Toggle the edit mode for Model Name field
+                  isModelEditing = !isModelEditing;
+                });
+              },
+            ),
+
+            _buildDetailItem(
+              Icons.person,
+              'Asset HandOver Date',
+              isAssetHandOverDateEditing
+                  ? _buildEditableTextField(
+                      ac.assets[0].assetHandOverDate.toString(),
+                      (newValue) => editAssetController
+                          .assetHandOverDate.value = newValue,
+                    )
+                  : Text(
+                      '${editAssetController.assetHandOverDate}',
+                    ),
+              isEditing: isEditing,
+              onEditPressed: () {
+                setState(() {
+                  // Toggle the edit mode for First Name field
+                  // isFirstNameEditing = !isFirstNameEditing;
                 });
               },
             ),
@@ -585,11 +646,22 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
 
             _buildDetailItem(
               Icons.storage,
-              'SSD',
+              'Drive',
               isSsdEditing
-                  ? _buildEditableTextField(
-                      ac.assets[0].ssd.toString(),
-                      (newValue) => editAssetController.SSD.value = newValue,
+                  ? DropdownButton<String>(
+                      value: editAssetController.SSD.value,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          editAssetController.SSD.value = newValue!;
+                        });
+                      },
+                      items: <String>['SSD', 'HDD']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                     )
                   : Obx(
                       () => Text(
@@ -805,6 +877,9 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
                       isEditing;
                       isFirstNameEditing = false;
                       isMakeEditing = false;
+                      isTypeEditing = false;
+                      isModelEditing = false;
+                      isAssetHandOverDateEditing = false;
                       isSerialNoEditing = false;
                       isAssetTageEditing = false;
                       isImeiEditing = false;

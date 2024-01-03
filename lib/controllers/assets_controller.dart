@@ -47,6 +47,13 @@ class AssestsController extends GetxController {
 
       editAssetController.make.value = assets[0].make;
 
+      editAssetController.type.value = assets[0].type;
+
+      editAssetController.model.value = assets[0].model;
+
+      editAssetController.assetHandOverDate.value =
+          assets[0].assetHandOverDate.toString();
+
       editAssetController.serialNo.value = assets[0].serialNo;
 
       editAssetController.id.value = assets[0].id.toString();

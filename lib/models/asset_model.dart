@@ -4,6 +4,9 @@ class Asset {
   final String make;
   // final String makeId;
   final String type;
+  final String model;
+
+  final String? assetHandOverDate;
 
   final String serialNo;
   final String assetTag;
@@ -26,6 +29,8 @@ class Asset {
     required this.empId,
     required this.make,
     required this.type,
+    required this.model,
+    required this.assetHandOverDate,
     required this.serialNo,
     required this.assetTag,
     required this.imeiNo,
@@ -48,6 +53,8 @@ class Asset {
       id: json['id'],
       empId: json['emp_Id'],
       type: json['type'],
+      model: json['model'],
+      assetHandOverDate: json['assetHandOverDate'],
       make: json['make'],
       serialNo: json['serialNo'],
       assetTag: json['assetTag'],
@@ -73,6 +80,8 @@ class Asset {
       'emp_Id': empId,
       'make': make,
       'type': type,
+      'model': model,
+      'assetHandOverDate': assetHandOverDate,
       'serialNo': serialNo,
       'assetTag': assetTag,
       'imeiNo': imeiNo,

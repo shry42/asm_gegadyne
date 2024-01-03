@@ -10,6 +10,8 @@ class AppController {
   static String? _aempId;
   static String? _make;
   static String? _type;
+  static String? _model;
+  static String? _assetHandOverDate;
   static String? _serialNo;
   static String? _assetTag;
   static String? _imeiNo;
@@ -73,6 +75,16 @@ class AppController {
   static get type => _type;
   static settype(String? value) {
     _type = type;
+  }
+
+  static get model => _model;
+  static setmodel(String? value) {
+    _model = model;
+  }
+
+  static get assetHandOverDate => _assetHandOverDate;
+  static setassetHandOverDate(String? value) {
+    _assetHandOverDate = assetHandOverDate;
   }
 
   static get serialNo => _serialNo;

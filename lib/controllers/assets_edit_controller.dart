@@ -14,6 +14,10 @@ class AssetsEditController extends GetxController {
   RxString ram = "".obs;
   RxString lastName = "".obs;
   RxString id = "".obs;
+  RxString makeId = "".obs;
+  RxString typeId = "".obs;
+  RxString model = "".obs;
+  RxString assetHandOverDate = "".obs;
   RxString empId = "".obs;
   RxString isActive = "".obs;
   RxString make = "".obs;
@@ -39,10 +43,13 @@ class AssetsEditController extends GetxController {
         'Authorization': 'Bearer ${AppController.accessToken}',
       },
       body: json.encode({
-        "id": id.value.toString(),
+        "id": AppController.id,
         "emp_Id": empId.value.toString(),
-        "make": make.value.toString(),
-        "type": make.value.toString(),
+        "make": id.value.toString(),
+        //"make": make.value.toString(),
+        "type": typeId.value.toString(),
+        "model": model.value.toString(),
+        "assetHandOverDate": assetHandOverDate.value.toString(),
         "serialNo": serialNo.value.toString(),
         "assetTag": assetTag.value.toString(),
         "imeiNo": imeiNo.value.toString(),

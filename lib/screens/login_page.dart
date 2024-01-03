@@ -124,10 +124,10 @@ class _LoginPageState extends State<LoginPage> {
                           // await c.simulateLogin();
 
                           await c.loginUser();
-                          if (emailController.text == "" ||
-                              passController.text == "") {
-                            toast("Please fill in details properly");
-                          }
+                          // if (emailController.text == "" ||
+                          //     passController.text == "") {
+                          //   toast("Please fill in details properly");
+                          // }
                           if (c.user?.emailId == null) {
                             Get.defaultDialog(
                               title: "Error",

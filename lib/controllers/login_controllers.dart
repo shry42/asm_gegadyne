@@ -42,8 +42,6 @@ class loginController extends GetxController {
       role = user!.role;
       AppController.setRole(role);
       // Get.offAll(UserDetailsScreen());
-    } else {
-      toast("Please check Credentials properly!");
     }
   }
 
